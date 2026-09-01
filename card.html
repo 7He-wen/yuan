@@ -6,272 +6,41 @@
 <title>信笺</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{
-  min-height:100vh;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Serif SC",serif;
-  background:#f8f2ec;
-  color:#442c2e;
-  position:relative;
-}
-.stage{
-  width:100vw;
-  min-height:100vh;
-  position:absolute;
-  top:0;
-  left:0;
-}
+body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Serif SC",serif;background:#f8f2ec;color:#442c2e;position:relative;}
+.stage{width:100vw;min-height:100vh;position:absolute;top:0;left:0;}
 .hide{display:none !important;}
-
-/* 信封 */
-.envelope-wrap{
-  width:82vw;
-  max-width:420px;
-  aspect-ratio:1.25/1;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-}
-.envelope{
-  width:100%;
-  height:100%;
-  background:url('envelope.JPG') center / contain no-repeat;
-  position:relative;
-  transition:all 1.2s cubic-bezier(0.23,1,0.32,1);
-}
-.envelope.open{
-  transform:translateY(-80px) scale(0.85);
-  opacity:0;
-}
-
-/* 信纸滑出 */
-.letter{
-  width:72vw;
-  max-width:370px;
-  height:auto;
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%, 120%);
-  opacity:0;
-  transition:transform 1.6s cubic-bezier(0.22,1,0.36,1), opacity 1.4s;
-}
-.letter.show{
-  opacity:1;
-  transform:translate(-50%,-40%);
-}
-
-.tip-text{
-  position:absolute;
-  bottom:14vh;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:1.1rem;
-  letter-spacing:0.22em;
-  color:#775456;
-  font-style:italic;
-  white-space:nowrap;
-  opacity:0;
-  transition:opacity 0.6s;
-}
+.envelope-wrap{width:82vw;max-width:420px;aspect-ratio:1.25/1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+.envelope{width:100%;height:100%;background:url('envelope.JPG') center/contain no-repeat;position:relative;transition:all 1.2s cubic-bezier(0.23,1,0.32,1);}
+.envelope.open{transform:translateY(-80px) scale(0.85);opacity:0;}
+.letter{width:72vw;max-width:370px;height:auto;position:absolute;left:50%;top:50%;transform:translate(-50%,120%);opacity:0;transition:transform 1.6s cubic-bezier(0.22,1,0.36,1),opacity 1.4s;}
+.letter.show{opacity:1;transform:translate(-50%,-40%);}
+.tip-text{position:absolute;bottom:14vh;left:50%;transform:translateX(-50%);font-size:1.1rem;letter-spacing:0.22em;color:#775456;font-style:italic;white-space:nowrap;opacity:0;transition:opacity .6s;}
 .tip-text.show{opacity:1;}
-
-.pink-btn{
-  border:none;
-  background:#f288a8;
-  color:#ffffff;
-  padding:14px 42px;
-  border-radius:999px;
-  font-size:1.15rem;
-  letter-spacing:0.14em;
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:12vh;
-  opacity:0;
-  transition:opacity 0.7s;
-}
+.pink-btn{border:none;background:#f288a8;color:#fff;padding:14px 42px;border-radius:999px;font-size:1.15rem;letter-spacing:0.14em;position:absolute;left:50%;transform:translateX(-50%);bottom:12vh;opacity:0;transition:opacity .7s;}
 .pink-btn.show{opacity:1;}
-
-/* 番外区域 带左右切换按钮（仅happybirthday使用） */
-.fanwai-wrap{
-  width:100vw;
-  height:100vh;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.fanwai-img{
-  width:84vw;
-  max-width:440px;
-  opacity:0;
-  transition:opacity 0.8s;
-}
+.fanwai-wrap{width:100vw;height:100vh;position:relative;display:flex;align-items:center;justify-content:center;}
+.fanwai-img{width:84vw;max-width:440px;opacity:0;transition:opacity .8s;}
 .fanwai-img.show{opacity:1;}
-.fan-nav{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  background:rgba(255,255,255,0.65);
-  border:none;
-  font-size:22px;
-  color:#333;
-}
-.fan-prev{left:16px;}
-.fan-next{right:16px;}
-
-/* 签筒（仅happybirthday使用） */
-.qian-wrap{
-  width:100vw;
-  min-height:100vh;
-  background:#e9dfd2;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-.qian-title{
-  font-size:1.4rem;
-  letter-spacing:0.26em;
-  margin-bottom:40px;
-  color:#60383a;
-}
-.qian-barrel{
-  width:64vw;
-  max-width:320px;
-  aspect-ratio:0.75;
-  background:linear-gradient(145deg,#c84c42,#a8322c);
-  border-radius:12px;
-  box-shadow:0 12px 30px rgba(80,30,25,0.28);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff8f8;
-  font-size:1.3rem;
-  letter-spacing:0.2em;
-}
-.qian-paper{
-  width:76vw;
-  max-width:400px;
-  background:#fff9ef;
-  border-radius:14px;
-  padding:36px 28px;
-  box-shadow:0 8px 24px rgba(60,30,20,0.18);
-  text-align:center;
-}
-.qian-level{
-  font-size:1.4rem;
-  color:#b83c3c;
-  margin-bottom:20px;
-}
-.qian-poem{
-  font-size:1.1rem;
-  line-height:2.2;
-  margin-bottom:28px;
-  display:none;
-}
-.circle-btn{
-  width:62px;
-  height:62px;
-  border-radius:50%;
-  border:2px solid #b83c3c;
-  background:transparent;
-  color:#b83c3c;
-  font-size:0.95rem;
-}
-.jieqian-btn{
-  margin-top:24px;
-  border:none;
-  background:#d45c54;
-  color:#fff;
-  padding:12px 30px;
-  border-radius:99px;
-  font-size:1rem;
-  display:none;
-}
-
-/* 独立解签页面（仅happybirthday） */
-.jie-page{
-  width:100vw;
-  min-height:100vh;
-  background:#f3ece2;
-  padding:40px 24px;
-}
-.jie-back{
-  border:none;
-  background:#b83c3c;
-  color:#fff;
-  padding:8px 20px;
-  border-radius:99px;
-  margin-bottom:30px;
-}
-.jie-content{
-  line-height:1.9;
-  font-size:1rem;
-}
-
-/* 专属祝福页：lucky / autumn 使用，艺术排版 */
-.bless-page{
-  width:100vw;
-  min-height:100vh;
-  background:#f8f2ec;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  text-align:center;
-}
-.bless-main{
-  font-size:2.3rem;
-  letter-spacing:0.32em;
-  margin-bottom:20px;
-  font-weight:500;
-}
-.bless-sub{
-  font-size:1.25rem;
-  letter-spacing:0.20em;
-  margin-bottom:36px;
-  color:#5a4042;
-}
-.bless-en{
-  font-size:1.05rem;
-  opacity:0.68;
-  font-style:italic;
-  letter-spacing:0.14em;
-}
-
-/* happybirthday结尾页 */
-.end-page{
-  width:100vw;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  text-align:center;
-}
-.end-main{
-  font-size:2.4rem;
-  letter-spacing:0.32em;
-  margin-bottom:16px;
-}
-.end-sub{
-  font-size:1.2rem;
-  letter-spacing:0.18em;
-  margin-bottom:32px;
-}
-.end-en{
-  font-size:1rem;
-  opacity:0.65;
-  font-style:italic;
-}
+.fan-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.65);border:none;font-size:22px;color:#333;}
+.fan-prev{left:16px;}.fan-next{right:16px;}
+.qian-wrap{width:100vw;min-height:100vh;background:#e9dfd2;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
+.qian-title{font-size:1.4rem;letter-spacing:0.26em;margin-bottom:40px;color:#60383a;}
+.qian-barrel{width:64vw;max-width:320px;aspect-ratio:.75;background:linear-gradient(145deg,#c84c42,#a8322c);border-radius:12px;box-shadow:0 12px 30px rgba(80,30,25,.28);display:flex;align-items:center;justify-content:center;color:#fff8f8;font-size:1.3rem;letter-spacing:0.2em;}
+.qian-paper{width:76vw;max-width:400px;background:#fff9ef;border-radius:14px;padding:36px 28px;box-shadow:0 8px 24px rgba(60,30,20,.18);text-align:center;}
+.qian-level{font-size:1.4rem;color:#b83c3c;margin-bottom:20px;}
+.qian-poem{font-size:1.1rem;line-height:2.2;margin-bottom:28px;display:none;}
+.circle-btn{width:62px;height:62px;border-radius:50%;border:2px solid #b83c3c;background:transparent;color:#b83c3c;font-size:.95rem;}
+.jieqian-btn{margin-top:24px;border:none;background:#d45c54;color:#fff;padding:12px 30px;border-radius:99px;font-size:1rem;display:none;}
+.jie-page{width:100vw;min-height:100vh;background:#f3ece2;padding:40px 24px;}
+.jie-back{border:none;background:#b83c3c;color:#fff;padding:8px 20px;border-radius:99px;margin-bottom:30px;}
+.jie-content{line-height:1.9;font-size:1rem;}
+.bless-page,.end-page{width:100vw;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;}
+.bless-main{font-size:2.3rem;letter-spacing:.32em;margin-bottom:20px;font-weight:500;}
+.bless-sub{font-size:1.25rem;letter-spacing:.20em;margin-bottom:36px;color:#5a4042;}
+.bless-en{font-size:1.05rem;opacity:.68;font-style:italic;letter-spacing:.14em;}
+.end-main{font-size:2.4rem;letter-spacing:.32em;margin-bottom:16px;}
+.end-sub{font-size:1.2rem;letter-spacing:.18em;margin-bottom:32px;}
+.end-en{font-size:1rem;opacity:.65;font-style:italic;}
 </style>
 </head>
 <body>
@@ -282,57 +51,29 @@ let mode=urlParams.get('mode')||"happybirthday";
 
 const configMap={
   happybirthday:{
-    letterImg:"letter‑happy birthday.JPG",
+    letterImg:"letter-happy-birthday.JPG",
     fanwaiList:["fanwai.JPG","fanwai2.JPG"],
     qianTitle:"娄星纳福 【上签 · 吉】",
-    qianPoem:`娄曜临辰纳岁光，<br/>
-前尘得失尽深藏。<br/>
-胸怀旷达机缘至，<br/>
-静守清风福满堂。`,
-    jieText:`厚积得福之象<br/><br/>
-此为收纳沉淀之吉签，不求一时轰轰烈烈，贵在把过往经历化作自身底气。机缘不急于即刻显现，心怀开阔，则好运徐徐而至。<br/><br/>
-宜静不宜躁，适合复盘规划，蓄力沉淀。切勿冲动冒险求变，静待时机自有际遇登门。<br/><br/>
-人缘和顺，易得旁人真诚惦念。偏爱细水长流，平淡相守胜过喧嚣热闹。<br/><br/>
-守成为上，宜储蓄积累，忌冒进投机，安稳即是增益。<br/><br/>
-往事皆沉淀，心宽福自来，<br/>
-生辰逢吉曜，岁岁得安怀。`,
-    endTitle:"生日快乐",
-    endSub:"祝你开心快乐",
-    endEn:"Wish you joy & happiness all the way"
+    qianPoem:`娄曜临辰纳岁光，<br>前尘得失尽深藏。<br>胸怀旷达机缘至，<br>静守清风福满堂。`,
+    jieText:`厚积得福之象<br><br>此为收纳沉淀之吉签，不求一时轰轰烈烈，贵在把过往经历化作自身底气。机缘不急于即刻显现，心怀开阔，则好运徐徐而至。<br><br>宜静不宜躁，适合复盘规划，蓄力沉淀。切勿冲动冒险求变，静待时机自有际遇登门。<br><br>人缘和顺，易得旁人真诚惦念。偏爱细水长流，平淡相守胜过喧嚣热闹。<br><br>守成为上，宜储蓄积累，忌冒进投机，安稳即是增益。<br><br>往事皆沉淀，心宽福自来，<br>生辰逢吉曜，岁岁得安怀。`,
+    endTitle:"生日快乐",endSub:"祝你开心快乐",endEn:"Wish you joy & happiness all the way"
   },
   lucky:{
-    letterImg:"letter‑lucky.JPG",
-    btnText:"幸运",
-    blessMain:"四叶草🍀是为你而来",
-    blessSub:"",
-    blessEn:"May luck always be beside you"
+    letterImg:"letter-lucky.JPG",btnText:"幸运",
+    blessMain:"四叶草🍀是为你而来",blessSub:"",blessEn:"May luck always be beside you"
   },
   autumn:{
-    letterImg:"letter‑autumn.JPG",
-    btnText:"秋天",
-    blessMain:"风若知秋",
-    blessSub:"寄此岁岁平安",
-    blessEn:"Wish you peace year after year"
+    letterImg:"letter-autumn.JPG",btnText:"秋天",
+    blessMain:"风若知秋",blessSub:"寄此岁岁平安",blessEn:"Wish you peace year after year"
   }
 };
-
-if(!configMap[mode]) mode = "happybirthday";
+if(!configMap[mode]) mode="happybirthday";
 const cfg=configMap[mode];
-
-const STAGE={
-  ENVELOPE:0,
-  FANWAI:1,
-  QIAN:2,
-  JIEPAGE:3,
-  END:4,
-  BLESS:5
-};
-let currentStage=STAGE.ENVELOPE;
-let fanwaiIndex=0;
+const STAGE={ENVELOPE:0,FANWAI:1,QIAN:2,JIEPAGE:3,END:4,BLESS:5};
+let currentStage=STAGE.ENVELOPE,fanwaiIndex=0;
 
 function renderApp(){
-  const app=document.getElementById("app");
-  let html=`
+  document.getElementById("app").innerHTML=`
   <div class="stage" id="stage-env">
     <div class="envelope-wrap">
       <div class="envelope" id="env"></div>
@@ -341,17 +82,15 @@ function renderApp(){
     <div class="tip-text" id="tipEnv">请轻触屏幕启封信笺</div>
     <button class="pink-btn" id="modeBtn">${cfg.btnText||""}</button>
   </div>
-
   <div class="stage hide" id="stage-fanwai">
     <div class="fanwai-wrap">
       <button class="fan-nav fan-prev" id="btnPrev">‹</button>
-      <img class="fanwai-img" id="fanImg" src="" alt="番外图片"/>
+      <img class="fanwai-img" id="fanImg" src="" alt="番外">
       <button class="fan-nav fan-next" id="btnNext">›</button>
     </div>
     <div class="tip-text" id="tipFan">请点击屏幕下一个</div>
     <button class="pink-btn" id="btnFan">番外</button>
   </div>
-
   <div class="stage hide" id="stage-qian">
     <div class="qian-wrap">
       <div class="qian-title">生辰一签</div>
@@ -367,14 +106,12 @@ function renderApp(){
       </div>
     </div>
   </div>
-
   <div class="stage hide" id="stage-jie">
     <div class="jie-page">
       <button class="jie-back" id="backQian">← 返回签纸</button>
       <div class="jie-content">${cfg.jieText||""}</div>
     </div>
   </div>
-
   <div class="stage hide" id="stage-end">
     <div class="end-page">
       <div class="end-main">${cfg.endTitle||""}</div>
@@ -382,16 +119,13 @@ function renderApp(){
       <div class="end-en">${cfg.endEn||""}</div>
     </div>
   </div>
-
   <div class="stage hide" id="stage-bless">
     <div class="bless-page">
       <div class="bless-main">${cfg.blessMain}</div>
       ${cfg.blessSub?`<div class="bless-sub">${cfg.blessSub}</div>`:""}
       <div class="bless-en">${cfg.blessEn}</div>
     </div>
-  </div>
-  `;
-  app.innerHTML=html;
+  </div>`;
   bindEvents();
 }
 
@@ -403,24 +137,18 @@ function bindEvents(){
   const modeBtn=document.getElementById("modeBtn");
   modeBtn.classList.remove("show");
 
-  //信封开启
   stageEnv.addEventListener("click",()=>{
-    if(currentStage!==STAGE.ENVELOPE) return;
+    if(currentStage!==STAGE.ENVELOPE)return;
     tipEnv.classList.remove("show");
     letter.classList.add("show");
-    setTimeout(()=>{ env.classList.add("open"); },1600);
-
-    //lucky / autumn：信纸展示3秒后显示按钮
+    setTimeout(()=>env.classList.add("open"),1600);
     if(mode==="lucky"||mode==="autumn"){
-      setTimeout(()=>{
-        modeBtn.classList.add("show");
-      },3000);
+      setTimeout(()=>modeBtn.classList.add("show"),3000);
     }else{
-      setTimeout(()=>{ goFanwai(); },5000);
+      setTimeout(goFanwai,5000);
     }
   });
 
-  //lucky、autumn点击按钮直接跳祝福页，不再走番外、求签
   if(mode==="lucky"||mode==="autumn"){
     modeBtn.onclick=()=>{
       currentStage=STAGE.BLESS;
@@ -429,50 +157,39 @@ function bindEvents(){
     };
   }
 
-  // -------- happybirthday专属流程：番外、求签、解签 --------
   function goFanwai(){
     currentStage=STAGE.FANWAI;
     document.getElementById("stage-env").classList.add("hide");
-    const sf=document.getElementById("stage-fanwai");
-    sf.classList.remove("hide");
-    fanwaiIndex=0;
-    showFanwaiImg();
+    document.getElementById("stage-fanwai").classList.remove("hide");
+    fanwaiIndex=0;showFanwaiImg();
   }
-
   function showFanwaiImg(){
     const fanImg=document.getElementById("fanImg");
     fanImg.src=cfg.fanwaiList[fanwaiIndex];
     fanImg.classList.add("show");
-    const tipFan=document.getElementById("tipFan");
-    tipFan.classList.add("show");
+    document.getElementById("tipFan").classList.add("show");
     const btnFan=document.getElementById("btnFan");
     btnFan.classList.remove("show");
-    setTimeout(()=>{ btnFan.classList.add("show"); },3000);
+    setTimeout(()=>btnFan.classList.add("show"),3000);
   }
-
   document.getElementById("btnNext").onclick=()=>{
     fanwaiIndex++;
-    if(fanwaiIndex >= cfg.fanwaiList.length){
-      setTimeout(()=>{ goQian(); },2000);
-      return;
-    }
+    if(fanwaiIndex>=cfg.fanwaiList.length){setTimeout(goQian,2000);return;}
     document.getElementById("fanImg").classList.remove("show");
     setTimeout(showFanwaiImg,400);
   };
   document.getElementById("btnPrev").onclick=()=>{
-    if(fanwaiIndex <=0) return;
+    if(fanwaiIndex<=0)return;
     fanwaiIndex--;
     document.getElementById("fanImg").classList.remove("show");
     setTimeout(showFanwaiImg,400);
   };
-  document.getElementById("btnFan").onclick=()=>{ goQian(); };
-
+  document.getElementById("btnFan").onclick=goQian;
   function goQian(){
     currentStage=STAGE.QIAN;
     document.getElementById("stage-fanwai").classList.add("hide");
     document.getElementById("stage-qian").classList.remove("hide");
   }
-
   document.getElementById("barrel").onclick=()=>{
     document.getElementById("barrel").classList.add("hide");
     document.getElementById("qianRes").classList.remove("hide");
@@ -492,27 +209,18 @@ function bindEvents(){
     currentStage=STAGE.QIAN;
     document.getElementById("stage-jie").classList.add("hide");
     document.getElementById("stage-qian").classList.remove("hide");
-    setTimeout(()=>{
-      document.getElementById("tipQian").classList.add("show");
-    },2000);
+    setTimeout(()=>document.getElementById("tipQian").classList.add("show"),2000);
   };
   document.getElementById("stage-qian").addEventListener("click",()=>{
-    const tipQian=document.getElementById("tipQian");
-    if(!tipQian.classList.contains("show")) return;
-    goEnd();
-  });
-  function goEnd(){
+    if(!document.getElementById("tipQian").classList.contains("show"))return;
     currentStage=STAGE.END;
     document.getElementById("stage-qian").classList.add("hide");
     document.getElementById("stage-end").classList.remove("hide");
-  }
+  });
 }
-
 window.onload=()=>{
   renderApp();
-  setTimeout(()=>{
-    document.getElementById("tipEnv").classList.add("show");
-  },1200);
+  setTimeout(()=>document.getElementById("tipEnv").classList.add("show"),1200);
 };
 </script>
 </body>
