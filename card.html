@@ -16,6 +16,7 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .letter.show{opacity:1;transform:translate(-50%,-40%);}
 .tip-text{position:absolute;bottom:14vh;left:50%;transform:translateX(-50%);font-size:1.1rem;letter-spacing:0.22em;color:#775456;font-style:italic;white-space:nowrap;opacity:0;transition:opacity .6s;}
 .tip-text.show{opacity:1;}
+#tipJie{position:fixed;bottom:7vh;}
 .pink-btn{border:none;background:#f288a8;color:#fff;padding:14px 42px;border-radius:999px;font-size:1.15rem;letter-spacing:0.14em;position:absolute;left:50%;transform:translateX(-50%);bottom:12vh;opacity:0;transition:opacity .7s;}
 .pink-btn.show{opacity:1;}
 .fanwai-wrap{width:100vw;height:100vh;position:relative;display:flex;align-items:center;justify-content:center;}
@@ -31,8 +32,7 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .qian-poem{font-size:1.1rem;line-height:2.2;margin-bottom:28px;display:none;}
 .circle-btn{width:62px;height:62px;border-radius:50%;border:2px solid #b83c3c;background:transparent;color:#b83c3c;font-size:.95rem;}
 .jieqian-btn{margin-top:24px;border:none;background:#d45c54;color:#fff;padding:12px 30px;border-radius:99px;font-size:1rem;display:none;}
-.jie-page{width:100vw;min-height:100vh;background:#f3ece2;padding:40px 24px;}
-.jie-back{border:none;background:#b83c3c;color:#fff;padding:8px 20px;border-radius:99px;margin-bottom:30px;}
+.jie-page{width:100vw;min-height:100vh;background:#f3ece2;padding:40px 24px 14vh;}
 .jie-content{line-height:1.9;font-size:1rem;}
 .bless-page,.end-page{width:100vw;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;}
 .bless-main{font-size:2.3rem;letter-spacing:.32em;margin-bottom:20px;font-weight:500;}
@@ -102,15 +102,14 @@ function renderApp(){
           <button class="circle-btn" id="seeQian">看签</button>
           <button class="jieqian-btn" id="btnJie">文胜大师解签</button>
         </div>
-        <div class="tip-text" id="tipQian">请点击页面继续</div>
       </div>
     </div>
   </div>
   <div class="stage hide" id="stage-jie">
     <div class="jie-page">
-      <button class="jie-back" id="backQian">← 返回签纸</button>
       <div class="jie-content">${cfg.jieText||""}</div>
     </div>
+    <div class="tip-text" id="tipJie">请点击屏幕</div>
   </div>
   <div class="stage hide" id="stage-end">
     <div class="end-page">
@@ -200,22 +199,27 @@ function bindEvents(){
     document.getElementById("poemDom").style.display="block";
     document.getElementById("btnJie").style.display="block";
   };
+
+  // 点击“文胜大师解签” → 进入独立解签页
   document.getElementById("btnJie").onclick=()=>{
     currentStage=STAGE.JIEPAGE;
     document.getElementById("stage-qian").classList.add("hide");
     document.getElementById("stage-jie").classList.remove("hide");
+    window.scrollTo(0,0);
+    // 进入解签页 3 秒后，自动出现“请点击屏幕”
+    setTimeout(()=>{
+      document.getElementById("tipJie").classList.add("show");
+    },3000);
   };
-  document.getElementById("backQian").onclick=()=>{
-    currentStage=STAGE.QIAN;
-    document.getElementById("stage-jie").classList.add("hide");
-    document.getElementById("stage-qian").classList.remove("hide");
-    setTimeout(()=>document.getElementById("tipQian").classList.add("show"),2000);
-  };
-  document.getElementById("stage-qian").addEventListener("click",()=>{
-    if(!document.getElementById("tipQian").classList.contains("show"))return;
+
+  // 解签页：提示出现后，点击屏幕直接跳到祝福语结尾页
+  document.getElementById("stage-jie").addEventListener("click",()=>{
+    const tipJie=document.getElementById("tipJie");
+    if(!tipJie.classList.contains("show"))return;
     currentStage=STAGE.END;
-    document.getElementById("stage-qian").classList.add("hide");
+    document.getElementById("stage-jie").classList.add("hide");
     document.getElementById("stage-end").classList.remove("hide");
+    window.scrollTo(0,0);
   });
 }
 window.onload=()=>{
