@@ -3,28 +3,26 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>生辰信笺</title>
+<title>信笺</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
   min-height:100vh;
-  overflow:hidden;
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Serif SC",serif;
   background:#f8f2ec;
   color:#442c2e;
   position:relative;
 }
-/* 容器层级 */
 .stage{
   width:100vw;
-  height:100vh;
+  min-height:100vh;
   position:absolute;
   top:0;
   left:0;
 }
 .hide{display:none !important;}
 
-/* 信封UI */
+/* 信封 */
 .envelope-wrap{
   width:82vw;
   max-width:420px;
@@ -46,7 +44,7 @@ body{
   opacity:0;
 }
 
-/* 信纸：从信封开口缓慢滑出 */
+/* 信纸滑出 */
 .letter{
   width:72vw;
   max-width:370px;
@@ -63,7 +61,6 @@ body{
   transform:translate(-50%,-40%);
 }
 
-/* 文雅提示文字 */
 .tip-text{
   position:absolute;
   bottom:14vh;
@@ -79,7 +76,6 @@ body{
 }
 .tip-text.show{opacity:1;}
 
-/* 粉色按钮 白色字体 */
 .pink-btn{
   border:none;
   background:#f288a8;
@@ -97,26 +93,42 @@ body{
 }
 .pink-btn.show{opacity:1;}
 
-/* 番外图片展示 */
+/* 番外区域 带左右切换按钮（仅happybirthday使用） */
+.fanwai-wrap{
+  width:100vw;
+  height:100vh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 .fanwai-img{
   width:84vw;
   max-width:440px;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
   opacity:0;
   transition:opacity 0.8s;
 }
 .fanwai-img.show{opacity:1;}
+.fan-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.65);
+  border:none;
+  font-size:22px;
+  color:#333;
+}
+.fan-prev{left:16px;}
+.fan-next{right:16px;}
 
-/* 签筒界面 */
+/* 签筒（仅happybirthday使用） */
 .qian-wrap{
   width:100vw;
-  height:100vh;
+  min-height:100vh;
   background:#e9dfd2;
-  position:absolute;
-  top:0;left:0;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -135,7 +147,6 @@ body{
   aspect-ratio:0.75;
   background:linear-gradient(145deg,#c84c42,#a8322c);
   border-radius:12px;
-  position:relative;
   box-shadow:0 12px 30px rgba(80,30,25,0.28);
   display:flex;
   align-items:center;
@@ -157,13 +168,12 @@ body{
   font-size:1.4rem;
   color:#b83c3c;
   margin-bottom:20px;
-  letter-spacing:0.18em;
 }
 .qian-poem{
   font-size:1.1rem;
   line-height:2.2;
   margin-bottom:28px;
-  letter-spacing:0.12em;
+  display:none;
 }
 .circle-btn{
   width:62px;
@@ -182,20 +192,64 @@ body{
   padding:12px 30px;
   border-radius:99px;
   font-size:1rem;
-}
-.jie-text{
-  margin-top:22px;
-  line-height:1.85;
-  font-size:0.98rem;
-  text-align:left;
+  display:none;
 }
 
-/* 结尾祝福页面 艺术字体+英文装饰 */
+/* 独立解签页面（仅happybirthday） */
+.jie-page{
+  width:100vw;
+  min-height:100vh;
+  background:#f3ece2;
+  padding:40px 24px;
+}
+.jie-back{
+  border:none;
+  background:#b83c3c;
+  color:#fff;
+  padding:8px 20px;
+  border-radius:99px;
+  margin-bottom:30px;
+}
+.jie-content{
+  line-height:1.9;
+  font-size:1rem;
+}
+
+/* 专属祝福页：lucky / autumn 使用，艺术排版 */
+.bless-page{
+  width:100vw;
+  min-height:100vh;
+  background:#f8f2ec;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  text-align:center;
+}
+.bless-main{
+  font-size:2.3rem;
+  letter-spacing:0.32em;
+  margin-bottom:20px;
+  font-weight:500;
+}
+.bless-sub{
+  font-size:1.25rem;
+  letter-spacing:0.20em;
+  margin-bottom:36px;
+  color:#5a4042;
+}
+.bless-en{
+  font-size:1.05rem;
+  opacity:0.68;
+  font-style:italic;
+  letter-spacing:0.14em;
+}
+
+/* happybirthday结尾页 */
 .end-page{
   width:100vw;
-  height:100vh;
-  position:absolute;
-  top:0;left:0;
+  min-height:100vh;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -221,64 +275,79 @@ body{
 </style>
 </head>
 <body>
-
 <div id="app"></div>
-
 <script>
-// 获取url模式
 const urlParams=new URLSearchParams(location.search);
 let mode=urlParams.get('mode')||"happybirthday";
 
-//三套配置
 const configMap={
   happybirthday:{
-    letterImg:"letter‑happybirthday.JPG",
+    letterImg:"letter‑happy birthday.JPG",
+    fanwaiList:["fanwai.JPG","fanwai2.JPG"],
+    qianTitle:"娄星纳福 【上签 · 吉】",
+    qianPoem:`娄曜临辰纳岁光，<br/>
+前尘得失尽深藏。<br/>
+胸怀旷达机缘至，<br/>
+静守清风福满堂。`,
+    jieText:`厚积得福之象<br/><br/>
+此为收纳沉淀之吉签，不求一时轰轰烈烈，贵在把过往经历化作自身底气。机缘不急于即刻显现，心怀开阔，则好运徐徐而至。<br/><br/>
+宜静不宜躁，适合复盘规划，蓄力沉淀。切勿冲动冒险求变，静待时机自有际遇登门。<br/><br/>
+人缘和顺，易得旁人真诚惦念。偏爱细水长流，平淡相守胜过喧嚣热闹。<br/><br/>
+守成为上，宜储蓄积累，忌冒进投机，安稳即是增益。<br/><br/>
+往事皆沉淀，心宽福自来，<br/>
+生辰逢吉曜，岁岁得安怀。`,
     endTitle:"生日快乐",
     endSub:"祝你开心快乐",
     endEn:"Wish you joy & happiness all the way"
   },
   lucky:{
     letterImg:"letter‑lucky.JPG",
-    endTitle:"四叶草🍀是为你而来",
-    endSub:"",
-    endEn:"May luck always be beside you"
+    btnText:"幸运",
+    blessMain:"四叶草🍀是为你而来",
+    blessSub:"",
+    blessEn:"May luck always be beside you"
   },
   autumn:{
     letterImg:"letter‑autumn.JPG",
-    endTitle:"风若知秋",
-    endSub:"寄此岁岁平安",
-    endEn:"Wish you peace year after year"
+    btnText:"秋天",
+    blessMain:"风若知秋",
+    blessSub:"寄此岁岁平安",
+    blessEn:"Wish you peace year after year"
   }
 };
-//兜底
+
 if(!configMap[mode]) mode = "happybirthday";
 const cfg=configMap[mode];
 
-// 状态机
 const STAGE={
   ENVELOPE:0,
   FANWAI:1,
   QIAN:2,
-  END:3
+  JIEPAGE:3,
+  END:4,
+  BLESS:5
 };
 let currentStage=STAGE.ENVELOPE;
 let fanwaiIndex=0;
-const fanwaiList=["fanwai.JPG","fanwai2.JPG"];
 
-//渲染主App
 function renderApp(){
   const app=document.getElementById("app");
-  app.innerHTML=`
+  let html=`
   <div class="stage" id="stage-env">
     <div class="envelope-wrap">
       <div class="envelope" id="env"></div>
       <img class="letter" id="letter" src="${cfg.letterImg}" alt="信纸">
     </div>
     <div class="tip-text" id="tipEnv">请轻触屏幕启封信笺</div>
+    <button class="pink-btn" id="modeBtn">${cfg.btnText||""}</button>
   </div>
 
   <div class="stage hide" id="stage-fanwai">
-    <img class="fanwai-img" id="fanImg" src="" alt="番外图片"/>
+    <div class="fanwai-wrap">
+      <button class="fan-nav fan-prev" id="btnPrev">‹</button>
+      <img class="fanwai-img" id="fanImg" src="" alt="番外图片"/>
+      <button class="fan-nav fan-next" id="btnNext">›</button>
+    </div>
     <div class="tip-text" id="tipFan">请点击屏幕下一个</div>
     <button class="pink-btn" id="btnFan">番外</button>
   </div>
@@ -289,40 +358,40 @@ function renderApp(){
       <div class="qian-barrel" id="barrel">点击求签</div>
       <div id="qianRes" class="hide">
         <div class="qian-paper">
-          <div class="qian-level">娄星纳福 【上签 · 吉】</div>
-          <div class="qian-poem">
-娄曜临辰纳岁光，<br/>
-前尘得失尽深藏。<br/>
-胸怀旷达机缘至，<br/>
-静守清风福满堂。
-          </div>
+          <div class="qian-level">${cfg.qianTitle||""}</div>
+          <div class="qian-poem" id="poemDom">${cfg.qianPoem||""}</div>
           <button class="circle-btn" id="seeQian">看签</button>
-          <div id="jieBlock" class="hide">
-            <button class="jieqian-btn" id="btnJie">文胜大师解签</button>
-            <div class="jie-text hide" id="jieText">
-厚积得福之象<br/><br/>
-此为收纳沉淀之吉签，不求一时轰轰烈烈，贵在把过往经历化作自身底气。机缘不急于即刻显现，心怀开阔，则好运徐徐而至。<br/><br/>
-宜静不宜躁，适合复盘规划，蓄力沉淀。切勿冲动冒险求变，静待时机自有际遇登门。<br/><br/>
-人缘和顺，易得旁人真诚惦念。偏爱细水长流，平淡相守胜过喧嚣热闹。<br/><br/>
-守成为上，宜储蓄积累，忌冒进投机，安稳即是增益。<br/><br/>
-往事皆沉淀，心宽福自来，<br/>
-生辰逢吉曜，岁岁得安怀。
-            </div>
-          </div>
+          <button class="jieqian-btn" id="btnJie">文胜大师解签</button>
         </div>
         <div class="tip-text" id="tipQian">请点击页面继续</div>
       </div>
     </div>
   </div>
 
+  <div class="stage hide" id="stage-jie">
+    <div class="jie-page">
+      <button class="jie-back" id="backQian">← 返回签纸</button>
+      <div class="jie-content">${cfg.jieText||""}</div>
+    </div>
+  </div>
+
   <div class="stage hide" id="stage-end">
     <div class="end-page">
-      <div class="end-main">${cfg.endTitle}</div>
+      <div class="end-main">${cfg.endTitle||""}</div>
       ${cfg.endSub?`<div class="end-sub">${cfg.endSub}</div>`:""}
-      <div class="end-en">${cfg.endEn}</div>
+      <div class="end-en">${cfg.endEn||""}</div>
+    </div>
+  </div>
+
+  <div class="stage hide" id="stage-bless">
+    <div class="bless-page">
+      <div class="bless-main">${cfg.blessMain}</div>
+      ${cfg.blessSub?`<div class="bless-sub">${cfg.blessSub}</div>`:""}
+      <div class="bless-en">${cfg.blessEn}</div>
     </div>
   </div>
   `;
+  app.innerHTML=html;
   bindEvents();
 }
 
@@ -331,22 +400,36 @@ function bindEvents(){
   const env=document.getElementById("env");
   const letter=document.getElementById("letter");
   const tipEnv=document.getElementById("tipEnv");
+  const modeBtn=document.getElementById("modeBtn");
+  modeBtn.classList.remove("show");
 
-  //第一步：点击屏幕，信纸滑出，**信纸动画完成后信封才消失**
+  //信封开启
   stageEnv.addEventListener("click",()=>{
     if(currentStage!==STAGE.ENVELOPE) return;
     tipEnv.classList.remove("show");
     letter.classList.add("show");
-    //信纸1.6s动画结束，信封执行消失动画
-    setTimeout(()=>{
-      env.classList.add("open");
-    },1600);
-    //信纸完全出现后等待5秒，切换番外页面
-    setTimeout(()=>{
-      goFanwai();
-    },5000);
+    setTimeout(()=>{ env.classList.add("open"); },1600);
+
+    //lucky / autumn：信纸展示3秒后显示按钮
+    if(mode==="lucky"||mode==="autumn"){
+      setTimeout(()=>{
+        modeBtn.classList.add("show");
+      },3000);
+    }else{
+      setTimeout(()=>{ goFanwai(); },5000);
+    }
   });
 
+  //lucky、autumn点击按钮直接跳祝福页，不再走番外、求签
+  if(mode==="lucky"||mode==="autumn"){
+    modeBtn.onclick=()=>{
+      currentStage=STAGE.BLESS;
+      document.getElementById("stage-env").classList.add("hide");
+      document.getElementById("stage-bless").classList.remove("hide");
+    };
+  }
+
+  // -------- happybirthday专属流程：番外、求签、解签 --------
   function goFanwai(){
     currentStage=STAGE.FANWAI;
     document.getElementById("stage-env").classList.add("hide");
@@ -358,40 +441,31 @@ function bindEvents(){
 
   function showFanwaiImg(){
     const fanImg=document.getElementById("fanImg");
-    fanImg.src=fanwaiList[fanwaiIndex];
+    fanImg.src=cfg.fanwaiList[fanwaiIndex];
     fanImg.classList.add("show");
     const tipFan=document.getElementById("tipFan");
     tipFan.classList.add("show");
     const btnFan=document.getElementById("btnFan");
     btnFan.classList.remove("show");
-    //展示图片3秒后显示番外按钮
-    setTimeout(()=>{
-      btnFan.classList.add("show");
-    },3000);
+    setTimeout(()=>{ btnFan.classList.add("show"); },3000);
   }
 
-  //番外页面点击切换图片，阻止按钮冒泡
-  document.getElementById("stage-fanwai").addEventListener("click",(e)=>{
-    if(e.target.tagName==="BUTTON") return;
+  document.getElementById("btnNext").onclick=()=>{
     fanwaiIndex++;
-    const fanImg=document.getElementById("fanImg");
-    fanImg.classList.remove("show");
-    if(fanwaiIndex >= fanwaiList.length){
-      //最后一张图片停留3秒再跳转签筒
-      setTimeout(()=>{
-        goQian();
-      },3000);
+    if(fanwaiIndex >= cfg.fanwaiList.length){
+      setTimeout(()=>{ goQian(); },2000);
       return;
     }
-    setTimeout(()=>{
-      showFanwaiImg();
-    },400);
-  });
-
-  //番外按钮：直接跳转签筒
-  document.getElementById("btnFan").onclick=()=>{
-    goQian();
+    document.getElementById("fanImg").classList.remove("show");
+    setTimeout(showFanwaiImg,400);
   };
+  document.getElementById("btnPrev").onclick=()=>{
+    if(fanwaiIndex <=0) return;
+    fanwaiIndex--;
+    document.getElementById("fanImg").classList.remove("show");
+    setTimeout(showFanwaiImg,400);
+  };
+  document.getElementById("btnFan").onclick=()=>{ goQian(); };
 
   function goQian(){
     currentStage=STAGE.QIAN;
@@ -399,32 +473,34 @@ function bindEvents(){
     document.getElementById("stage-qian").classList.remove("hide");
   }
 
-  //签筒点击求签
   document.getElementById("barrel").onclick=()=>{
     document.getElementById("barrel").classList.add("hide");
     document.getElementById("qianRes").classList.remove("hide");
+    document.getElementById("poemDom").style.display="none";
+    document.getElementById("btnJie").style.display="none";
   };
-
-  //看签
   document.getElementById("seeQian").onclick=()=>{
-    document.getElementById("jieBlock").classList.remove("hide");
+    document.getElementById("poemDom").style.display="block";
+    document.getElementById("btnJie").style.display="block";
   };
-
-  //解签按钮，展开文本，再启动2秒计时
   document.getElementById("btnJie").onclick=()=>{
-    document.getElementById("jieText").classList.remove("hide");
+    currentStage=STAGE.JIEPAGE;
+    document.getElementById("stage-qian").classList.add("hide");
+    document.getElementById("stage-jie").classList.remove("hide");
+  };
+  document.getElementById("backQian").onclick=()=>{
+    currentStage=STAGE.QIAN;
+    document.getElementById("stage-jie").classList.add("hide");
+    document.getElementById("stage-qian").classList.remove("hide");
     setTimeout(()=>{
       document.getElementById("tipQian").classList.add("show");
     },2000);
   };
-
-  //签页面点击，跳转结尾
   document.getElementById("stage-qian").addEventListener("click",()=>{
     const tipQian=document.getElementById("tipQian");
     if(!tipQian.classList.contains("show")) return;
     goEnd();
   });
-
   function goEnd(){
     currentStage=STAGE.END;
     document.getElementById("stage-qian").classList.add("hide");
