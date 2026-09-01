@@ -17,7 +17,6 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","STSong","Microsoft YaHei",serif;
 }
 
-/* 信封信件主体动画 */
 .container{
   position:relative;
   width:90vw;
@@ -52,14 +51,13 @@ body{
 
 @keyframes pullOut{
   0%{transform: translateY(0) scaleY(0.22);}
-  100%{transform: translateY(-26%) scaleY(0.22);}
+  100%{transform: translateY(-40px) scaleY(1);}
 }
 @keyframes unfold{
-  0%{transform: translateY(-26%) scaleY(0.22);opacity:0.5;}
-  100%{transform: translateY(-26%) scaleY(1);opacity:1;}
+  0%{opacity:0.4;}
+  100%{opacity:1;}
 }
 
-/* 艺术按钮 信件展开后淡入 */
 .art-btn{
   margin-top:80px;
   padding:12px 36px;
@@ -69,9 +67,9 @@ body{
   color:#fff;
   font-size:17px;
   letter-spacing:2px;
-  box-shadow:0 6px 20px #f8b8d080;
+  box-shadow:0 6px 20px rgba(248,168,200,0.5);
   opacity:0;
-  animation:btnFade 6s ease-out forwards;
+  animation:btnFade 6s ease forwards;
   display:none;
 }
 .art-btn.show{display:block;}
@@ -79,7 +77,6 @@ body{
   to{opacity:1;}
 }
 
-/* 全局番外弹窗层 */
 .pop-layer{
   position:fixed;
   top:0;left:0;
@@ -94,7 +91,6 @@ body{
 }
 .pop-layer.show{display:flex;}
 
-/* 艺术文字样式 */
 .art-text-top{
   font-size:26px;
   color:#f8d8e8;
@@ -107,15 +103,13 @@ body{
   color:#fff;
   letter-spacing:3px;
 }
-.eng-deco{
+.eng-text{
   font-size:13px;
   color:#f8c8d8;
   letter-spacing:1px;
   margin:16px 0 6px;
   opacity:0.85;
 }
-
-/* 生日番外图片展示 */
 .birth-img{
   width:85vw;
   max-width:380px;
@@ -123,17 +117,15 @@ body{
   margin:10px 0;
   display:none;
 }
-.birth-img.show{display:block;animation:fadeShow 0.8s ease;}
-@keyframes fadeShow{from{opacity:0;}to{opacity:1;}}
-
-.close-btn{
+.birth-img.show{display:block;}
+.close-tip{
   margin-top:30px;
-  color:#f8b8d0;
+  color:#f8b8c8;
   font-size:15px;
   letter-spacing:1px;
 }
 
-/* ========== 签筒组件（仅happybirthday模式可见） ========== */
+/* 签筒 NFC部分 */
 .tube-wrap{
   position:fixed;
   bottom:40px;
@@ -144,7 +136,6 @@ body{
   text-align:center;
 }
 .tube-wrap.show{display:block;}
-
 .tube{
   width:110px;
   height:140px;
@@ -154,45 +145,15 @@ body{
   margin:0 auto;
   cursor:pointer;
 }
-/*筒内多根签 */
 .stick{
   position:absolute;
   width:8px;
   height:90px;
   background:#f8e8d0;
-  left:50%;
-  transform:translateX(-50%);
   border-radius:4px;
   top:-70px;
-}
-.stick:nth-child(2){left:32%;height:82px;transform:rotate(-8deg);}
-.stick:nth-child(3){left:68%;height:86px;transform:rotate(7deg);}
-.stick:nth-child(4){left:42%;height:78px;transform:rotate(-3deg);}
-.stick:nth-child(5){left:58%;height:84px;transform:rotate(4deg);}
-
-/*摇晃动画 */
-@keyframes shakeTube{
-  0%{transform: rotate(0deg);}
-  20%{transform: rotate(-12deg);}
-  40%{transform: rotate(12deg);}
-  60%{transform: rotate(-10deg);}
-  80%{transform: rotate(10deg);}
-  100%{transform: rotate(0deg);}
-}
-.tube.shake{
-  animation: shakeTube 0.7s ease-in-out;
-}
-
-/*抽出来的签 */
-.draw-stick{
-  position:absolute;
-  width:14px;
-  height:110px;
-  background:#fff2e0;
-  border-radius:6px;
   left:50%;
   transform:translateX(-50%);
-  top:-120px;
   opacity:0;
   display:flex;
   align-items:center;
@@ -202,20 +163,25 @@ body{
   writing-mode:vertical-rl;
   letter-spacing:2px;
 }
-.draw-stick.out{
-  animation:stickOut 1s ease forwards;
+.stick.out{
+  opacity:1;
+  animation:stickFly 1s ease forwards;
 }
-@keyframes stickOut{
-  0%{opacity:0;top:-40px;}
-  100%{opacity:1;top:-130px;}
+@keyframes stickFly{
+  0%{top:-70px;}
+  100%{top:-110px;}
+}
+.tip-desc{
+  margin-top:12px;
+  color:#c06080;
+  font-size:14px;
 }
 
-/*签文弹窗 */
 .paper-pop{
   position:fixed;
   top:0;left:0;
   width:100vw;height:100vh;
-  background:rgba(0,0,0,0.65);
+  background:#00000066;
   z-index:120;
   display:none;
   justify-content:center;
@@ -231,7 +197,7 @@ body{
   overflow-y:auto;
   padding:28px 22px;
   border-radius:14px;
-  box-shadow:0 8px 30px #00000040;
+  box-shadow:0 8px 30px rgba(0,0,0,0.25);
 }
 .paper-title{
   text-align:center;
@@ -242,24 +208,24 @@ body{
 }
 .paper-short{
   text-align:center;
-  font-size:18px;
+  font-size:17px;
   color:#772222;
   margin-bottom:20px;
 }
 .paper-full{
   font-size:15px;
   line-height:1.8;
-  color:#332222;
+  color:#333;
   display:none;
 }
 .paper-full.show{display:block;}
-.paper-buttons{
+.btn-group{
   margin-top:22px;
   display:flex;
   gap:12px;
   justify-content:center;
 }
-.paper-btn{
+.pop-btn{
   padding:8px 18px;
   border-radius:30px;
   border:none;
@@ -267,11 +233,18 @@ body{
   color:#fff;
   font-size:14px;
 }
-.paper-close{
+.close-paper-tip{
   margin-top:20px;
   text-align:center;
   color:#b84444;
   font-size:14px;
+}
+
+audio{
+  position:fixed;
+  bottom:4px;
+  opacity:0;
+  pointer-events:none;
 }
 </style>
 </head>
@@ -282,84 +255,72 @@ body{
     <img src="envelope.JPG" alt="信封">
   </div>
   <div class="letter-wrap">
-    <img id="letterImg" alt="专属信件">
+    <img id="letterImg" alt="信纸">
   </div>
 </div>
 
-<button class="art-btn" id="mainBtn"></button>
+<button class="art-btn" id="mainBtn">番外</button>
 
-<!-- 番外弹窗 -->
 <div class="pop-layer" id="popLayer">
-  <div class="eng-deco" id="engTop"></div>
-  <div class="art-text-top" id="artTop"></div>
-  <div class="art-text-bottom" id="artBottom"></div>
-
-  <img class="birth-img" id="birthImg1" src="fanwai.JPG">
-  <img class="birth-img" id="birthImg2" src="fanwai2.JPG">
-
-  <div class="eng-deco" id="engBot"></div>
-  <div class="close-btn">点击空白处关闭</div>
+  <div class="eng-text" id="engTop"></div>
+  <div class="art-text-top" id="textTop"></div>
+  <div class="art-text-bottom" id="textBottom"></div>
+  <img class="birth-img" id="img1" src="fanwai.JPG">
+  <img class="birth-img" id="img2" src="fanwai2.JPG">
+  <div class="eng-text" id="engBot"></div>
+  <div class="close-tip">点击空白处关闭</div>
 </div>
 
-<!-- 签筒组件：仅happybirthday显示 -->
 <div class="tube-wrap" id="tubeWrap">
-  <div class="tube" id="tubeEl">
-    <div class="stick"></div>
-    <div class="stick"></div>
-    <div class="stick"></div>
-    <div class="stick"></div>
-    <div class="stick"></div>
-    <div class="draw-stick" id="drawStick">上签·娄星纳福</div>
+  <div class="tube" id="tubeBox">
+    <div class="stick" id="stickEl">上签·娄星纳福</div>
   </div>
-  <div style="margin-top:12px;color:#c06080;font-size:14px">点击签筒求签</div>
+  <div class="tip-desc">点击签筒求签</div>
 </div>
 
-<!-- 签文弹窗 -->
 <div class="paper-pop" id="paperPop">
   <div class="paper-card">
     <div class="paper-title">🎋灵签 第三十七签</div>
     <div class="paper-short">上签 · 娄星纳福</div>
-    <div class="paper-full" id="paperFull">
+    <div class="paper-full" id="paperContent">
 娄曜临辰纳岁光，<br>
 前尘得失尽深藏。<br>
 胸怀旷达机缘至，<br>
 静守清风福满堂。<br><br>
-【总断】厚积得福之象<br>
-此为收纳沉淀之吉签，不求一时轰轰烈烈，贵在把过往经历化作自身底气。机缘不急于即刻显现，心怀开阔，则好运徐徐而至。<br><br>
+【总断】厚积待时之象<br>
+此为厚积得福之上签，不必追逐浮华，默默沉淀积蓄力量，时机到来自有美好际遇。<br><br>
 【学业事业】<br>
-宜静不宜躁，适合复盘规划，蓄力沉淀。切勿冲动冒险求变，静待时机自有际遇登门。<br><br>
+宜沉心复盘，厚积蓄力，不宜冒进求速，静待机遇自会登门。<br><br>
 【人际情缘】<br>
-人缘和顺，易得旁人真诚惦念。偏爱细水长流，平淡相守胜过喧嚣热闹。<br><br>
+待人真诚自有相知之人，细水长流胜过轰轰烈烈。<br><br>
 【财禄】<br>
-守成为上，宜储蓄积累，忌冒进投机，安稳即是增益。<br><br>
-【断语】<br>
-往事皆沉淀，心宽福自来，<br>
-生辰逢吉曜，岁岁得安怀。
+守成为上，忌投机冒险，安稳即是吉兆。<br><br>
+【结语】<br>
+过往沉潜皆为铺垫，心宽志远，岁岁安康。
     </div>
-    <div class="paper-buttons">
-      <button class="paper-btn" id="btnExpand">展开</button>
-      <button class="paper-btn" id="btnExplain" style="display:none">解签</button>
+    <div class="btn-group">
+      <button class="pop-btn" id="expandBtn">展开</button>
+      <button class="pop-btn" id="jumpBtn">解签</button>
     </div>
-    <div class="paper-close">点击空白关闭</div>
+    <div class="close-paper-tip">点击空白关闭</div>
   </div>
 </div>
 
-<audio id="audioPlayer" controls preload="metadata" style="position:fixed;bottom:20px;opacity:0;">
-  <source id="audioSrc">
+<audio id="bgAudio" preload="metadata">
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const mode = params.get('mode') || 'lucky';
+const params=new URLSearchParams(location.search);
+const mode=params.get("mode")||"lucky";
 
-const data = {
+const data={
   lucky:{
     img:"letter-lucky.JPG",
     audio:"lucky.mp3",
     btnText:"幸运",
     engTop:"LUCKY BLESSING",
     topTxt:"四叶草 🍀",
-    botTxt:"是为你而来",
-    engBot:"The best luck belongs to you"
+    botTxt:"予你好运",
+    engBot:"Wish you all the best"
   },
   autumn:{
     img:"letter-autumn.JPG",
@@ -367,12 +328,12 @@ const data = {
     btnText:"秋天",
     engTop:"AUTUMN WISH",
     topTxt:"枫落知秋",
-    botTxt:"寄此岁岁平安",
+    botTxt:"寄此岁岁安",
     engBot:"Quiet days, gentle years"
   },
   happybirthday:{
     img:"letter-happybirthday.JPG",
-    audio:"happybirthday.mp3",
+    audio:"happy birthday.mp3",
     btnText:"番外",
     engTop:"HAPPY MEMORY",
     topTxt:"",
@@ -381,96 +342,85 @@ const data = {
   }
 };
 
-const d = data[mode];
-document.getElementById('letterImg').src = d.img;
-document.getElementById('audioSrc').src = d.audio;
-document.getElementById('audioPlayer').load();
+const cfg=data[mode];
+document.querySelector("#letterImg").src=cfg.img;
+document.querySelector("#mainBtn").innerText=cfg.btnText;
+document.querySelector("#bgAudio").src=cfg.audio;
 
-const btn = document.getElementById('mainBtn');
-btn.innerText = d.btnText;
-btn.classList.add('show');
+const mainBtn=document.querySelector("#mainBtn");
+const popLayer=document.querySelector("#popLayer");
+const engTop=document.querySelector("#engTop");
+const textTop=document.querySelector("#textTop");
+const textBottom=document.querySelector("#textBottom");
+const engBot=document.querySelector("#engBot");
+const img1=document.querySelector("#img1");
+const img2=document.querySelector("#img2");
+const tubeWrap=document.querySelector("#tubeWrap");
+const tubeBox=document.querySelector("#tubeBox");
+const stickEl=document.querySelector("#stickEl");
+const paperPop=document.querySelector("#paperPop");
+const paperContent=document.querySelector("#paperContent");
+const expandBtn=document.querySelector("#expandBtn");
+const jumpBtn=document.querySelector("#jumpBtn");
 
-const pop = document.getElementById('popLayer');
-const eTop = document.getElementById('engTop');
-const tTop = document.getElementById('artTop');
-const tBot = document.getElementById('artBottom');
-const eBot = document.getElementById('engBot');
+// 6秒后显示按钮
+setTimeout(()=>{
+  mainBtn.classList.add("show");
+},6000);
 
-//签筒DOM
-const tubeWrap = document.getElementById('tubeWrap');
-const tubeEl = document.getElementById('tubeEl');
-const drawStick = document.getElementById('drawStick');
-const paperPop = document.getElementById('paperPop');
-const paperFull = document.getElementById('paperFull');
-const btnExpand = document.getElementById('btnExpand');
-const btnExplain = document.getElementById('btnExplain');
+// 生日模式，关闭弹窗后显示签筒
+mainBtn.onclick=()=>{
+  engTop.innerText=cfg.engTop;
+  textTop.innerText=cfg.topTxt;
+  textBottom.innerText=cfg.botTxt;
+  engBot.innerText=cfg.engBot;
+  popLayer.classList.add("show");
+  if(mode==="happybirthday"){
+    img1.classList.add("show");
+    setTimeout(()=>{
+      img1.classList.remove("show");
+      img2.classList.add("show");
+    },2200);
+  }
+};
 
-btn.onclick = function(){
-  eTop.innerText = d.engTop;
-  tTop.innerText = d.topTxt;
-  tBot.innerText = d.botTxt;
-  eBot.innerText = d.engBot;
-
-  if(mode === "happybirthday"){
-    let img1 = document.getElementById("birthImg1");
-    let img2 = document.getElementById("birthImg2");
+popLayer.onclick=(e)=>{
+  if(e.target===popLayer){
+    popLayer.classList.remove("show");
     img1.classList.remove("show");
     img2.classList.remove("show");
-    setTimeout(()=>{img1.classList.add("show");},300);
-    setTimeout(()=>{img1.classList.remove("show");img2.classList.add("show");},2200);
-  }
-  pop.classList.add("show");
-}
-
-//关闭番外弹窗后，如果是happybirthday，则显示签筒
-pop.onclick = function(e){
-  if(e.target === pop){
-    pop.classList.remove("show");
-    if(mode === 'happybirthday'){
-      tubeWrap.classList.add('show');
+    if(mode==="happybirthday"){
+      tubeWrap.classList.add("show");
     }
   }
-}
+};
 
-//点击签筒：摇晃 → 甩出签 → 弹出签文弹窗
-tubeEl.onclick = async function(){
-  if(tubeEl.classList.contains('shake')) return;
-  tubeEl.classList.add('shake');
-  drawStick.classList.remove('out');
-  paperFull.classList.remove('show');
-  btnExpand.style.display="inline-block";
-  btnExplain.style.display="none";
+// 签筒逻辑
+tubeBox.onclick=()=>{
+  stickEl.classList.add("out");
+  setTimeout(()=>{
+    paperPop.classList.add("show");
+  },1100);
+};
 
-  await new Promise(r=>setTimeout(r,700));
-  drawStick.classList.add('out');
-
-  await new Promise(r=>setTimeout(r,900));
-  paperPop.classList.add('show');
-  tubeEl.classList.remove('shake');
-}
-
-//展开按钮
-btnExpand.onclick = function(){
-  paperFull.classList.add('show');
-  btnExpand.style.display="none";
-  btnExplain.style.display="inline-block";
-}
-//解签按钮
-btnExplain.onclick = function(){
-  paperFull.scrollTop = paperFull.scrollHeight;
-}
-
-//关闭签文弹窗
-paperPop.onclick = function(e){
-  if(e.target === paperPop){
-    paperPop.classList.remove('show');
-    drawStick.classList.remove('out');
-    paperFull.classList.remove('show');
-    btnExpand.style.display="inline-block";
-    btnExplain.style.display="none";
+paperPop.onclick=(e)=>{
+  if(e.target===paperPop){
+    paperPop.classList.remove("show");
+    stickEl.classList.remove("out");
+    paperContent.classList.remove("show");
+    expandBtn.style.display="inline-block";
+    jumpBtn.style.display="none";
   }
-}
-</script>
+};
 
+expandBtn.onclick=()=>{
+  paperContent.classList.add("show");
+  expandBtn.style.display="none";
+  jumpBtn.style.display="inline-block";
+};
+jumpBtn.onclick=()=>{
+  paperPop.querySelector(".paper-card").scrollTop=paperPop.querySelector(".paper-card").scrollHeight;
+};
+</script>
 </body>
 </html>
