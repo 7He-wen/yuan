@@ -63,14 +63,15 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .songs-glow{position:absolute;width:90vw;height:90vw;max-width:560px;max-height:560px;left:50%;top:30%;transform:translate(-50%,-50%);background:radial-gradient(circle,var(--theme-glow),rgba(0,0,0,0) 68%);pointer-events:none;transition:background .8s;opacity:.7;}
 .songs-box{position:relative;z-index:2;width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:4vh 24px 3vh;text-align:center;box-sizing:border-box;}
 .songs-header{width:100%!important;text-align:center!important;margin-bottom:10px!important;min-height:50px!important;z-index:100!important;position:relative!important;display:block!important;visibility:visible!important;}
-.page-name{font-size:.85rem!important;letter-spacing:.4em!important;color:#fff!important;opacity:.9!important;margin-bottom:8px!important;font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;width:100%!important;text-align:center!important;display:block!important;visibility:visible!important;}
+.page-name{font-size:.8rem!important;letter-spacing:.35em!important;color:#fff!important;opacity:.7!important;margin-bottom:4px!important;font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;width:100%!important;text-align:center!important;display:block!important;visibility:visible!important;}
+.np-track{font-size:.75rem!important;letter-spacing:.2em!important;color:rgba(255,255,255,.5)!important;margin-bottom:8px!important;font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;width:100%!important;text-align:center!important;display:block!important;}
 .songs-main{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:30px;width:100%;flex:1;min-height:0;}
 .songs-bottom{width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:10px;}
 .np-label{display:none;font-size:.7rem;letter-spacing:.46em;color:var(--theme-light);opacity:.9;}
 .np-track{display:none;margin-top:6px;font-size:.74rem;letter-spacing:.3em;color:rgba(243,233,228,.45);font-style:italic;}
-.lyrics-wrap{height:220px!important;overflow:hidden!important;margin:0!important;width:55%!important;max-width:400px!important;flex:1!important;min-width:200px!important;display:flex!important;align-items:center!important;justify-content:center!important;position:relative!important;z-index:50!important;background:transparent!important;visibility:visible!important;}
-.lyrics{transition:transform .6s cubic-bezier(.22,1,.36,1)!important;will-change:transform!important;width:100%!important;display:block!important;}
-.lyric-line{height:56px!important;line-height:56px!important;font-size:1rem!important;letter-spacing:.05em!important;color:rgba(243,233,228,.3)!important;text-align:center!important;width:100%!important;max-width:100%!important;margin:0 auto!important;padding:0 10px!important;white-space:normal!important;word-break:break-word!important;box-sizing:border-box!important;display:block!important;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
+.lyrics-wrap{height:240px!important;overflow:hidden!important;margin:0!important;width:320px!important;max-width:320px!important;flex:0 0 320px!important;min-width:320px!important;display:block!important;position:relative!important;z-index:50!important;background:transparent!important;visibility:visible!important;}
+.lyrics{transition:transform .6s cubic-bezier(.22,1,.36,1)!important;will-change:transform!important;width:100%!important;display:block!important;position:relative!important;}
+.lyric-line{height:56px!important;line-height:56px!important;font-size:1rem!important;letter-spacing:.05em!important;color:rgba(255,255,255,.35)!important;text-align:center!important;width:100%!important;max-width:100%!important;margin:0 auto!important;padding:0 10px!important;white-space:normal!important;word-break:break-word!important;box-sizing:border-box!important;display:block!important;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
 .lyric-line.active{color:#fff!important;font-size:1.55rem!important;font-weight:700!important;opacity:1!important;text-shadow:0 0 30px var(--theme-glow),0 0 60px var(--theme-glow)!important;transform:scale(1)!important;display:block!important;}
 .lyric-line.prev-1,.lyric-line.next-1{font-size:1.1rem;opacity:.45;color:rgba(243,233,228,.45);}
 .lyric-line.prev-2,.lyric-line.next-2{font-size:.9rem;opacity:.2;color:rgba(243,233,228,.2);}
@@ -101,6 +102,36 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .song-item.active .si-num,.song-item.active .si-name{color:var(--theme-light);transition:color .8s;}
 .song-item.active .si-name{font-weight:600;}
 .list-close{display:block;margin:14px auto 0;background:transparent;border:none;color:rgba(243,233,228,.6);letter-spacing:.3em;font-size:.76rem;cursor:pointer;}
+
+
+/* ============ 响应式布局 ============ */
+/* 电脑端/iPad（宽度>768px）：左右布局 */
+@media(min-width:769px){
+  .songs-main{flex-direction:row!important;gap:40px!important;}
+  .vinyl{width:180px!important;height:180px!important;}
+  .lyrics-wrap{width:360px!important;max-width:360px!important;flex:0 0 360px!important;height:260px!important;}
+  .song-title{font-size:1.4rem!important;}
+}
+/* 手机端（宽度<=768px）：上下布局 */
+@media(max-width:768px){
+  .songs-main{flex-direction:column!important;gap:20px!important;}
+  .vinyl{width:140px!important;height:140px!important;order:1!important;}
+  .lyrics-wrap{width:90%!important;max-width:90%!important;flex:0 0 auto!important;height:180px!important;order:2!important;min-width:0!important;}
+  .songs-header{margin-bottom:15px!important;}
+  .song-title{font-size:1.1rem!important;}
+  .page-name{font-size:.7rem!important;}
+  .np-track{font-size:.65rem!important;}
+  .songs-box{padding:3vh 16px 2vh!important;}
+  .ctrl{width:48px!important;height:48px!important;}
+  .ctrl.main{width:64px!important;height:64px!important;}
+}
+/* 小屏手机（宽度<=480px） */
+@media(max-width:480px){
+  .vinyl{width:120px!important;height:120px!important;}
+  .lyrics-wrap{height:160px!important;}
+  .lyric-line{height:48px!important;line-height:48px!important;font-size:.9rem!important;}
+  .lyric-line.active{font-size:1.3rem!important;}
+}
 
 /* ============ photo模式：堆叠照片 ============ */
 #stage-photo{background:linear-gradient(135deg,#f5ede4 0%,#e8dcc8 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;}
@@ -388,6 +419,7 @@ function renderApp(){
     <div class="songs-box">
       <div class="songs-header">
         <div class="page-name" id="pageName"></div>
+        <div class="np-track" id="npTrack">Track -- / --</div>
         <div class="song-title" id="songTitle"></div>
       </div>
       <div class="songs-main">
@@ -629,10 +661,12 @@ function bindSongs(){
       updateLyric();
     };
     audio.src=s.f;
+    const npTrackEl=document.getElementById("npTrack");
+    if(npTrackEl)npTrackEl.textContent="Track "+String(i+1).padStart(2,"0")+" / "+String(cfg.songs.length).padStart(2,"0");
     const songTitleEl=document.getElementById("songTitle");
     if(songTitleEl)songTitleEl.textContent=s.t||"";
     const pageNameEl=document.getElementById("pageName");
-    if(pageNameEl){pageNameEl.textContent=mode==="happybirthday"?"生日快乐":mode==="lucky"?"幸运":mode==="autumn"?"秋天":"音乐";}
+    if(pageNameEl){pageNameEl.textContent=mode==="happybirthday"?"HAPPY BIRTHDAY":mode==="lucky"?"LUCKY":mode==="autumn"?"AUTUMN":"MUSIC";}
     highlight(i);
     buildLyrics(s);
     progBar.style.width="0%";
@@ -698,17 +732,24 @@ function bindPhoto(){
 }
 
 window.onload=function(){
-  renderApp();
-  if(mode==="photo"){
-    setTimeout(function(){
-      if(typeof goPhoto==="function")goPhoto();
-      if(typeof bindPhoto==="function")bindPhoto();
-    },300);
-  }else{
-    setTimeout(function(){
-      const tip=document.getElementById("tipEnv");
-      if(tip)tip.classList.add("show");
-    },1200);
+  try{
+    renderApp();
+    if(mode==="photo"){
+      setTimeout(function(){
+        try{if(typeof goPhoto==="function")goPhoto();}catch(e){console.error("goPhoto error:",e);}
+        try{if(typeof bindPhoto==="function")bindPhoto();}catch(e){console.error("bindPhoto error:",e);}
+      },300);
+    }else{
+      setTimeout(function(){
+        try{
+          const tip=document.getElementById("tipEnv");
+          if(tip)tip.classList.add("show");
+        }catch(e){console.error("tip error:",e);}
+      },1200);
+    }
+  }catch(e){
+    console.error("Init error:",e);
+    document.body.innerHTML='<div style="color:#fff;padding:40px;font-family:sans-serif;">加载出错: '+e.message+'</div>';
   }
 };
 </script>
