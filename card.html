@@ -77,7 +77,7 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .np-track{display:none;margin-top:6px;font-size:.74rem;letter-spacing:.3em;color:rgba(243,233,228,.45);font-style:italic;}
 .lyrics-wrap{height:240px!important;overflow:hidden!important;margin:0!important;width:320px!important;max-width:320px!important;flex:0 0 320px!important;min-width:320px!important;display:block!important;position:relative!important;z-index:50!important;background:transparent!important;visibility:visible!important;}
 .lyrics{transition:transform .6s cubic-bezier(.22,1,.36,1)!important;will-change:transform!important;width:100%!important;display:block!important;position:relative!important;}
-.lyric-line{height:56px!important;line-height:56px!important;font-size:1rem!important;letter-spacing:.05em!important;color:rgba(255,255,255,.35)!important;text-align:center!important;width:100%!important;max-width:100%!important;margin:0 auto!important;white-space:normal!important;word-break:break-word!important;box-sizing:border-box!important;display:block!important;overflow:hidden!important;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
+.lyric-line{height:56px!important;line-height:56px!important;font-size:1rem!important;letter-spacing:.05em!important;color:rgba(255,255,255,.35)!important;text-align:center!important;width:100%!important;max-width:100%!important;margin:0 auto!important;padding:0 10px!important;white-space:normal!important;word-break:break-word!important;box-sizing:border-box!important;display:block!important;overflow:hidden!important;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
 .lyric-line.active{color:#fff!important;font-size:1.4rem!important;font-weight:700!important;line-height:56px!important;padding:0 10px!important;opacity:1!important;text-shadow:0 0 30px var(--theme-glow),0 0 60px var(--theme-glow)!important;transform:scale(1)!important;display:block!important;}
 .lyric-line.prev-1,.lyric-line.next-1{font-size:1.05rem;opacity:.45;line-height:56px!important;color:rgba(243,233,228,.45);}
 .lyric-line.prev-2,.lyric-line.next-2{font-size:.9rem;opacity:.2;color:rgba(243,233,228,.2);}
@@ -122,7 +122,10 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 @media(max-width:768px){
   .songs-main{flex-direction:column!important;gap:20px!important;}
   .vinyl{width:140px!important;height:140px!important;order:1!important;}
-  .lyrics-wrap{width:90%!important;max-width:90%!important;flex:0 0 auto!important;height:180px!important;order:2!important;min-width:0!important;}
+  .lyrics-wrap{width:90%!important;overflow:hidden!important;}
+  .lyric-line{overflow:visible!important;white-space:nowrap!important;word-break:normal!important;padding:0!important;}
+  .lyric-line.active{font-size:1.1rem!important;}
+  .lyric-line.next-1{font-size:0.95rem!important;};max-width:90%!important;flex:0 0 auto!important;height:180px!important;order:2!important;min-width:0!important;}
   .songs-header{margin-bottom:15px!important;}
   .song-title{font-size:1.1rem!important;}
   .page-name{font-size:.7rem!important;}
@@ -304,23 +307,23 @@ let currentStage=STAGE.ENVELOPE,fanwaiIndex=0,fanwaiStep=0;
 let audio=null,currentSong=0,themeFading=null;
 let audioCtx=null,analyser=null,dataArr=null,srcNode=null,visRunning=false;
 
-function ensureAudio(){ if(!audio){ audio=new Audio(); audio.preload="auto"; } }
+function ensureAudio(){ if(!audio){ audio=new Audio(); audio.preload="auto"; } if(cfg&&cfg.theme&&!audio.src){ audio.src=cfg.theme; } }
 function stopThemeFade(){ if(themeFading){clearInterval(themeFading);themeFading=null;} }
 function playTheme(){
   if(!cfg.theme)return;
   ensureAudio();
   stopThemeFade();
+  if(audio.src!==cfg.theme)audio.src=cfg.theme;
   audio.loop=true;
   audio.volume=0;
-  audio.src=cfg.theme;
   audio.play().catch(function(){});
   const target=cfg.themeVolume||0.25;
   let v=0;
   themeFading=setInterval(function(){
-    v+=0.008;
+    v+=0.006;
     if(v>=target){v=target;stopThemeFade();}
     if(audio)audio.volume=v;
-  },40);
+  },50);
 }
 function initAudioVis(){
   if(audioCtx)return;
