@@ -16,7 +16,7 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .letter.show{opacity:1;transform:translate(-50%,-40%);}
 .tip-text{position:absolute;bottom:14vh;left:50%;transform:translateX(-50%);font-size:1.1rem;letter-spacing:0.22em;color:#775456;font-style:italic;white-space:nowrap;opacity:0;transition:opacity .6s;}
 .tip-text.show{opacity:1;}
-#tipJie{position:fixed;bottom:7vh;}
+#tipJie,#tipEnd{position:fixed;bottom:7vh;}
 .pink-btn{border:none;background:#f288a8;color:#fff;padding:14px 42px;border-radius:999px;font-size:1.15rem;letter-spacing:0.14em;position:absolute;left:50%;transform:translateX(-50%);bottom:12vh;opacity:0;transition:opacity .7s;}
 .pink-btn.show{opacity:1;}
 .fanwai-wrap{width:100vw;height:100vh;position:relative;display:flex;align-items:center;justify-content:center;}
@@ -41,6 +41,38 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .end-main{font-size:2.4rem;letter-spacing:.32em;margin-bottom:16px;}
 .end-sub{font-size:1.2rem;letter-spacing:.18em;margin-bottom:32px;}
 .end-en{font-size:1rem;opacity:.65;font-style:italic;}
+#stage-songs{background:radial-gradient(120% 90% at 50% 18%,#33243a 0%,#1d1522 52%,#120d16 100%);color:#f3e9e4;overflow:hidden;}
+.songs-glow{position:absolute;width:80vw;height:80vw;max-width:520px;max-height:520px;left:50%;top:34%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(216,180,138,.18),rgba(216,180,138,0) 68%);pointer-events:none;}
+.songs-box{position:relative;z-index:2;width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:7vh 24px 5vh;text-align:center;}
+.np-label{font-size:.72rem;letter-spacing:.42em;color:#d8b48a;opacity:.85;}
+.np-track{margin-top:8px;font-size:.78rem;letter-spacing:.3em;color:rgba(243,233,228,.5);font-style:italic;}
+.vinyl{position:relative;width:200px;height:200px;margin:34px auto 30px;border-radius:50%;background:radial-gradient(circle at center,#7a5a44 0 16%,#0d0a0e 16.5% 19%,rgba(255,255,255,.05) 19.5% 21%,transparent 21.5%),repeating-radial-gradient(circle at center,#17111b 0 3px,#0c0810 3px 6px);box-shadow:0 18px 50px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06);animation:spin 16s linear infinite;animation-play-state:paused;}
+.vinyl.spin{animation-play-state:running;}
+.vinyl::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;transform:translate(-50%,-50%);border-radius:50%;background:#1d1522;box-shadow:0 0 0 3px rgba(216,180,138,.5);}
+@keyframes spin{to{transform:rotate(360deg);}}
+.song-title{font-size:1.62rem;line-height:1.5;font-weight:600;letter-spacing:.06em;max-width:86%;min-height:3.2em;display:flex;align-items:center;justify-content:center;}
+.song-title.fade{animation:titleIn .8s ease both;}
+@keyframes titleIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.song-deco{margin-top:14px;font-size:.82rem;letter-spacing:.34em;color:rgba(216,180,138,.75);font-style:italic;text-transform:uppercase;}
+.progress{width:82%;max-width:420px;height:3px;background:rgba(255,255,255,.14);border-radius:3px;margin:30px 0 22px;overflow:hidden;cursor:pointer;}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,#d8b48a,#f0d9bd);border-radius:3px;}
+.songs-ctrl{display:flex;align-items:center;gap:30px;}
+.ctrl{width:58px;height:58px;border-radius:50%;border:1px solid rgba(243,233,228,.28);background:rgba(255,255,255,.05);color:#f3e9e4;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.25s;}
+.ctrl svg{width:22px;height:22px;fill:currentColor;}
+.ctrl.main{width:72px;height:72px;background:linear-gradient(145deg,#e7c79b,#c99a63);color:#231a20;border:none;box-shadow:0 10px 26px rgba(201,154,99,.35);}
+.ctrl.main svg{width:28px;height:28px;}
+.ctrl:active{transform:scale(.93);}
+.list-toggle{margin-top:26px;background:transparent;border:1px solid rgba(243,233,228,.25);color:#f3e9e4;font-size:.8rem;letter-spacing:.3em;padding:9px 22px;border-radius:999px;cursor:pointer;}
+.list-panel{position:fixed;left:0;right:0;bottom:0;z-index:9;max-height:66vh;overflow-y:auto;background:rgba(24,18,28,.92);backdrop-filter:blur(18px);border-top:1px solid rgba(216,180,138,.25);border-radius:26px 26px 0 0;padding:22px 20px 34px;transform:translateY(105%);transition:transform .4s cubic-bezier(.22,1,.36,1);}
+.list-panel.show{transform:translateY(0);}
+.list-panel h4{font-size:.78rem;letter-spacing:.4em;color:#d8b48a;text-align:center;margin-bottom:16px;font-weight:500;}
+.song-item{display:flex;align-items:center;gap:16px;padding:13px 8px;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer;text-align:left;}
+.song-item:last-child{border-bottom:none;}
+.si-num{font-size:.74rem;color:rgba(243,233,228,.4);font-style:italic;width:24px;flex:none;}
+.si-name{font-size:.98rem;letter-spacing:.03em;color:rgba(243,233,228,.86);}
+.song-item.active .si-num,.song-item.active .si-name{color:#e7c79b;}
+.song-item.active .si-name{font-weight:600;}
+.list-close{display:block;margin:14px auto 0;background:transparent;border:none;color:rgba(243,233,228,.6);letter-spacing:.3em;font-size:.78rem;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -48,15 +80,30 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 <script>
 const urlParams=new URLSearchParams(location.search);
 let mode=urlParams.get('mode')||"happybirthday";
-
+const ICON_PLAY='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+const ICON_PAUSE='<svg viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>';
+const ICON_PREV='<svg viewBox="0 0 24 24"><path d="M18 6v12l-8-6zM6 6h2.4v12H6z"/></svg>';
+const ICON_NEXT='<svg viewBox="0 0 24 24"><path d="M6 6v12l8-6zM15.6 6H18v12h-2.4z"/></svg>';
 const configMap={
   happybirthday:{
     letterImg:"letter-happy-birthday.JPG",
     fanwaiList:["fanwai.JPG","fanwai2.JPG"],
     qianTitle:"娄星纳福 【上签 · 吉】",
-    qianPoem:`娄曜临辰纳岁光，<br>前尘得失尽深藏。<br>胸怀旷达机缘至，<br>静守清风福满堂。`,
-    jieText:`厚积得福之象<br><br>此为收纳沉淀之吉签，不求一时轰轰烈烈，贵在把过往经历化作自身底气。机缘不急于即刻显现，心怀开阔，则好运徐徐而至。<br><br>宜静不宜躁，适合复盘规划，蓄力沉淀。切勿冲动冒险求变，静待时机自有际遇登门。<br><br>人缘和顺，易得旁人真诚惦念。偏爱细水长流，平淡相守胜过喧嚣热闹。<br><br>守成为上，宜储蓄积累，忌冒进投机，安稳即是增益。<br><br>往事皆沉淀，心宽福自来，<br>生辰逢吉曜，岁岁得安怀。`,
-    endTitle:"生日快乐",endSub:"祝你开心快乐",endEn:"Wish you joy & happiness all the way"
+    qianPoem:"娄曜临辰纳岁光，<br>前尘得失尽深藏。<br>胸怀旷达机缘至，<br>静守清风福满堂。",
+    jieText:"厚积得福之象<br><br>此为收纳沉淀之吉签，不求一时轰轰烈烈，贵在把过往经历化作自身底气。机缘不急于即刻显现，心怀开阔，则好运徐徐而至。<br><br>宜静不宜躁，适合复盘规划，蓄力沉淀。切勿冲动冒险求变，静待时机自有际遇登门。<br><br>人缘和顺，易得旁人真诚惦念。偏爱细水长流，平淡相守胜过喧嚣热闹。<br><br>守成为上，宜储蓄积累，忌冒进投机，安稳即是增益。<br><br>往事皆沉淀，心宽福自来，<br>生辰逢吉曜，岁岁得安怀。",
+    endTitle:"生日快乐",endSub:"祝你开心快乐",endEn:"Wish you joy & happiness all the way",
+    theme:"where-did-u-go.mp3",
+    songs:[
+      {f:"champion-my-way.mp3",t:"Champion My Way"},
+      {f:"full-stop.mp3",t:"Full Stop"},
+      {f:"goodbye.mp3",t:"Goodbye"},
+      {f:"no-matter-how-far.mp3",t:"No Matter How Far, We'll Stay Together"},
+      {f:"red-rose-white-rose.mp3",t:"Red Rose, White Rose"},
+      {f:"the-one.mp3",t:"The One"},
+      {f:"the-rose-in-my-palm.mp3",t:"The Rose In My Palm"},
+      {f:"trees-reading.mp3",t:"Tree's Reading"},
+      {f:"where-did-u-go.mp3",t:"Where Did U Go"}
+    ]
   },
   lucky:{
     letterImg:"letter-lucky.JPG",btnText:"幸运",
@@ -69,9 +116,17 @@ const configMap={
 };
 if(!configMap[mode]) mode="happybirthday";
 const cfg=configMap[mode];
-const STAGE={ENVELOPE:0,FANWAI:1,QIAN:2,JIEPAGE:3,END:4,BLESS:5};
+const STAGE={ENVELOPE:0,FANWAI:1,QIAN:2,JIEPAGE:3,END:4,BLESS:5,SONGS:6};
 let currentStage=STAGE.ENVELOPE,fanwaiIndex=0;
-
+let audio=null,currentSong=0;
+function ensureAudio(){ if(!audio){ audio=new Audio(); audio.preload="auto"; } }
+function playTheme(){
+  if(!cfg.theme)return;
+  ensureAudio();
+  audio.loop=true;
+  audio.src=cfg.theme;
+  audio.play().catch(function(){});
+}
 function renderApp(){
   document.getElementById("app").innerHTML=`
   <div class="stage" id="stage-env">
@@ -106,9 +161,7 @@ function renderApp(){
     </div>
   </div>
   <div class="stage hide" id="stage-jie">
-    <div class="jie-page">
-      <div class="jie-content">${cfg.jieText||""}</div>
-    </div>
+    <div class="jie-page"><div class="jie-content">${cfg.jieText||""}</div></div>
     <div class="tip-text" id="tipJie">请点击屏幕</div>
   </div>
   <div class="stage hide" id="stage-end">
@@ -117,17 +170,39 @@ function renderApp(){
       ${cfg.endSub?`<div class="end-sub">${cfg.endSub}</div>`:""}
       <div class="end-en">${cfg.endEn||""}</div>
     </div>
+    <div class="tip-text" id="tipEnd">轻点屏幕 · 进入音乐</div>
   </div>
   <div class="stage hide" id="stage-bless">
     <div class="bless-page">
-      <div class="bless-main">${cfg.blessMain}</div>
+      <div class="bless-main">${cfg.blessMain||""}</div>
       ${cfg.blessSub?`<div class="bless-sub">${cfg.blessSub}</div>`:""}
-      <div class="bless-en">${cfg.blessEn}</div>
+      <div class="bless-en">${cfg.blessEn||""}</div>
+    </div>
+  </div>
+  <div class="stage hide" id="stage-songs">
+    <div class="songs-glow"></div>
+    <div class="songs-box">
+      <div class="np-label">NOW PLAYING</div>
+      <div class="np-track" id="npTrack">Track -- / 09</div>
+      <div class="vinyl" id="vinyl"></div>
+      <div class="song-title" id="songTitle">—</div>
+      <div class="song-deco">music · for your day</div>
+      <div class="progress" id="prog"><div class="progress-bar" id="progBar"></div></div>
+      <div class="songs-ctrl">
+        <button class="ctrl" id="btnShuffle">${ICON_PREV}</button>
+        <button class="ctrl main" id="btnPlayPause">${ICON_PAUSE}</button>
+        <button class="ctrl" id="btnNextSong">${ICON_NEXT}</button>
+      </div>
+      <button class="list-toggle" id="btnList">♪ 播放列表</button>
+    </div>
+    <div class="list-panel" id="listPanel">
+      <h4>PLAYLIST</h4>
+      <div id="songList"></div>
+      <button class="list-close" id="listClose">收 起</button>
     </div>
   </div>`;
   bindEvents();
 }
-
 function bindEvents(){
   const stageEnv=document.getElementById("stage-env");
   const env=document.getElementById("env");
@@ -135,27 +210,25 @@ function bindEvents(){
   const tipEnv=document.getElementById("tipEnv");
   const modeBtn=document.getElementById("modeBtn");
   modeBtn.classList.remove("show");
-
-  stageEnv.addEventListener("click",()=>{
+  stageEnv.addEventListener("click",function(){
     if(currentStage!==STAGE.ENVELOPE)return;
     tipEnv.classList.remove("show");
     letter.classList.add("show");
-    setTimeout(()=>env.classList.add("open"),1600);
+    playTheme();
+    setTimeout(function(){env.classList.add("open");},1600);
     if(mode==="lucky"||mode==="autumn"){
-      setTimeout(()=>modeBtn.classList.add("show"),3000);
+      setTimeout(function(){modeBtn.classList.add("show");},3000);
     }else{
       setTimeout(goFanwai,5000);
     }
   });
-
   if(mode==="lucky"||mode==="autumn"){
-    modeBtn.onclick=()=>{
+    modeBtn.onclick=function(){
       currentStage=STAGE.BLESS;
       document.getElementById("stage-env").classList.add("hide");
       document.getElementById("stage-bless").classList.remove("hide");
     };
   }
-
   function goFanwai(){
     currentStage=STAGE.FANWAI;
     document.getElementById("stage-env").classList.add("hide");
@@ -169,15 +242,15 @@ function bindEvents(){
     document.getElementById("tipFan").classList.add("show");
     const btnFan=document.getElementById("btnFan");
     btnFan.classList.remove("show");
-    setTimeout(()=>btnFan.classList.add("show"),3000);
+    setTimeout(function(){btnFan.classList.add("show");},3000);
   }
-  document.getElementById("btnNext").onclick=()=>{
+  document.getElementById("btnNext").onclick=function(){
     fanwaiIndex++;
     if(fanwaiIndex>=cfg.fanwaiList.length){setTimeout(goQian,2000);return;}
     document.getElementById("fanImg").classList.remove("show");
     setTimeout(showFanwaiImg,400);
   };
-  document.getElementById("btnPrev").onclick=()=>{
+  document.getElementById("btnPrev").onclick=function(){
     if(fanwaiIndex<=0)return;
     fanwaiIndex--;
     document.getElementById("fanImg").classList.remove("show");
@@ -189,42 +262,128 @@ function bindEvents(){
     document.getElementById("stage-fanwai").classList.add("hide");
     document.getElementById("stage-qian").classList.remove("hide");
   }
-  document.getElementById("barrel").onclick=()=>{
+  document.getElementById("barrel").onclick=function(){
     document.getElementById("barrel").classList.add("hide");
     document.getElementById("qianRes").classList.remove("hide");
     document.getElementById("poemDom").style.display="none";
     document.getElementById("btnJie").style.display="none";
   };
-  document.getElementById("seeQian").onclick=()=>{
+  document.getElementById("seeQian").onclick=function(){
     document.getElementById("poemDom").style.display="block";
     document.getElementById("btnJie").style.display="block";
   };
-
-  // 点击“文胜大师解签” → 进入独立解签页
-  document.getElementById("btnJie").onclick=()=>{
+  document.getElementById("btnJie").onclick=function(){
     currentStage=STAGE.JIEPAGE;
     document.getElementById("stage-qian").classList.add("hide");
     document.getElementById("stage-jie").classList.remove("hide");
     window.scrollTo(0,0);
-    // 进入解签页 3 秒后，自动出现“请点击屏幕”
-    setTimeout(()=>{
-      document.getElementById("tipJie").classList.add("show");
-    },3000);
+    setTimeout(function(){document.getElementById("tipJie").classList.add("show");},3000);
   };
-
-  // 解签页：提示出现后，点击屏幕直接跳到祝福语结尾页
-  document.getElementById("stage-jie").addEventListener("click",()=>{
-    const tipJie=document.getElementById("tipJie");
-    if(!tipJie.classList.contains("show"))return;
+  document.getElementById("stage-jie").addEventListener("click",function(){
+    if(!document.getElementById("tipJie").classList.contains("show"))return;
     currentStage=STAGE.END;
     document.getElementById("stage-jie").classList.add("hide");
     document.getElementById("stage-end").classList.remove("hide");
     window.scrollTo(0,0);
+    setTimeout(function(){document.getElementById("tipEnd").classList.add("show");},2600);
   });
+  document.getElementById("stage-end").addEventListener("click",function(){
+    if(!cfg.songs)return;
+    if(!document.getElementById("tipEnd").classList.contains("show"))return;
+    goSongs();
+  });
+  bindSongs();
 }
-window.onload=()=>{
+function bindSongs(){
+  if(!cfg.songs)return;
+  const vinyl=document.getElementById("vinyl");
+  const songTitle=document.getElementById("songTitle");
+  const npTrack=document.getElementById("npTrack");
+  const progBar=document.getElementById("progBar");
+  const prog=document.getElementById("prog");
+  const btnPlayPause=document.getElementById("btnPlayPause");
+  const listPanel=document.getElementById("listPanel");
+  const list=document.getElementById("songList");
+  const total=cfg.songs.length;
+  list.innerHTML="";
+  cfg.songs.forEach(function(s,i){
+    const item=document.createElement("div");
+    item.className="song-item";
+    const num=document.createElement("span");
+    num.className="si-num";
+    num.textContent=String(i+1).padStart(2,"0");
+    const name=document.createElement("span");
+    name.className="si-name";
+    name.textContent=s.t;
+    item.appendChild(num);item.appendChild(name);
+    item.addEventListener("click",function(){
+      loadSong(i,true);toggleList(false);
+    });
+    list.appendChild(item);
+  });
+  function setPlayingUI(playing){
+    vinyl.classList.toggle("spin",playing);
+    btnPlayPause.innerHTML=playing?ICON_PAUSE:ICON_PLAY;
+  }
+  function highlight(i){
+    const items=list.querySelectorAll(".song-item");
+    items.forEach(function(el,idx){el.classList.toggle("active",idx===i);});
+  }
+  function loadSong(i,autoplay){
+    currentSong=i;
+    const s=cfg.songs[i];
+    ensureAudio();
+    audio.loop=false;
+    audio.onended=randomNext;
+    audio.ontimeupdate=function(){
+      if(audio.duration){progBar.style.width=(audio.currentTime/audio.duration*100)+"%";}
+    };
+    audio.src=s.f;
+    songTitle.textContent=s.t;
+    npTrack.textContent="Track "+String(i+1).padStart(2,"0")+" / "+String(total).padStart(2,"0");
+    songTitle.classList.remove("fade");void songTitle.offsetWidth;songTitle.classList.add("fade");
+    highlight(i);
+    progBar.style.width="0%";
+    if(autoplay){audio.play().catch(function(){});setPlayingUI(true);}
+  }
+  function randomDifferent(cur){
+    if(total<=1)return 0;
+    var n;do{n=Math.floor(Math.random()*total);}while(n===cur);
+    return n;
+  }
+  function randomNext(){loadSong(randomDifferent(currentSong),true);}
+  btnPlayPause.onclick=function(e){
+    e.stopPropagation();
+    ensureAudio();
+    if(audio.paused){audio.play().catch(function(){});setPlayingUI(true);}
+    else{audio.pause();setPlayingUI(false);}
+  };
+  document.getElementById("btnNextSong").onclick=function(e){e.stopPropagation();randomNext();};
+  document.getElementById("btnShuffle").onclick=function(e){e.stopPropagation();randomNext();};
+  prog.addEventListener("click",function(e){
+    if(!audio||!audio.duration)return;
+    const r=prog.getBoundingClientRect();
+    audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;
+  });
+  function toggleList(show){listPanel.classList.toggle("show",show);}
+  document.getElementById("btnList").onclick=function(e){e.stopPropagation();toggleList(true);};
+  document.getElementById("listClose").onclick=function(e){e.stopPropagation();toggleList(false);};
+  window.__loadSong=loadSong;
+  window.__randomNext=randomNext;
+  window.__setPlayingUI=setPlayingUI;
+}
+function goSongs(){
+  currentStage=STAGE.SONGS;
+  document.getElementById("stage-end").classList.add("hide");
+  document.getElementById("stage-songs").classList.remove("hide");
+  window.scrollTo(0,0);
+  ensureAudio();
+  var first=Math.floor(Math.random()*(cfg.songs.length));
+  window.__loadSong(first,true);
+}
+window.onload=function(){
   renderApp();
-  setTimeout(()=>document.getElementById("tipEnv").classList.add("show"),1200);
+  setTimeout(function(){document.getElementById("tipEnv").classList.add("show");},1200);
 };
 </script>
 </body>
