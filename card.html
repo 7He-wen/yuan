@@ -4,6 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>信笺</title>
+<link rel="preload" as="image" href="letter-happy-birthday.JPG">
+<link rel="preload" as="image" href="letter-lucky.JPG">
+<link rel="preload" as="image" href="letter-autumn.JPG">
+<link rel="preload" as="image" href="fanwai2.JPG">
+<link rel="preload" as="image" href="fanwai.JPG">
+<link rel="preload" as="image" href="fanwai3.JPG">
 <style>
 :root{--theme:#c99a63;--theme-light:#e7c79b;--theme-glow:rgba(201,154,99,.4);}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -69,11 +75,11 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .songs-bottom{width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:10px;}
 .np-label{display:none;font-size:.7rem;letter-spacing:.46em;color:var(--theme-light);opacity:.9;}
 .np-track{display:none;margin-top:6px;font-size:.74rem;letter-spacing:.3em;color:rgba(243,233,228,.45);font-style:italic;}
-.lyrics-wrap{height:240px!important;overflow:hidden!important;margin:0!important;width:320px!important;max-width:320px!important;flex:0 0 320px!important;min-width:320px!important;display:block!important;position:relative!important;z-index:50!important;background:transparent!important;visibility:visible!important;}
+.lyrics-wrap{height:280px!important;overflow:hidden!important;margin:0!important;width:320px!important;max-width:320px!important;flex:0 0 320px!important;min-width:320px!important;display:block!important;position:relative!important;z-index:50!important;background:transparent!important;visibility:visible!important;}
 .lyrics{transition:transform .6s cubic-bezier(.22,1,.36,1)!important;will-change:transform!important;width:100%!important;display:block!important;position:relative!important;}
-.lyric-line{height:56px!important;line-height:56px!important;font-size:1rem!important;letter-spacing:.05em!important;color:rgba(255,255,255,.35)!important;text-align:center!important;width:100%!important;max-width:100%!important;margin:0 auto!important;padding:0 10px!important;white-space:normal!important;word-break:break-word!important;box-sizing:border-box!important;display:block!important;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
-.lyric-line.active{color:#fff!important;font-size:1.55rem!important;font-weight:700!important;opacity:1!important;text-shadow:0 0 30px var(--theme-glow),0 0 60px var(--theme-glow)!important;transform:scale(1)!important;display:block!important;}
-.lyric-line.prev-1,.lyric-line.next-1{font-size:1.1rem;opacity:.45;color:rgba(243,233,228,.45);}
+.lyric-line{min-height:56px!important;height:auto!important;line-height:1.5!important;font-size:1rem!important;padding:8px 10px!important;letter-spacing:.05em!important;color:rgba(255,255,255,.35)!important;text-align:center!important;width:100%!important;max-width:100%!important;margin:0 auto!important;padding:0 10px!important;white-space:normal!important;word-break:break-word!important;box-sizing:border-box!important;display:block!important;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
+.lyric-line.active{color:#fff!important;font-size:1.4rem!important;font-weight:700!important;line-height:1.4!important;padding:10px!important;opacity:1!important;text-shadow:0 0 30px var(--theme-glow),0 0 60px var(--theme-glow)!important;transform:scale(1)!important;display:block!important;}
+.lyric-line.prev-1,.lyric-line.next-1{font-size:1.05rem;opacity:.45;line-height:1.5!important;color:rgba(243,233,228,.45);}
 .lyric-line.prev-2,.lyric-line.next-2{font-size:.9rem;opacity:.2;color:rgba(243,233,228,.2);}
 .lyric-line.far{opacity:0;transform:scale(.8);}
 .song-title{font-size:1.25rem!important;font-weight:600!important;color:#fff!important;letter-spacing:.1em!important;margin:0!important;text-align:center!important;text-shadow:0 0 20px var(--theme-glow)!important;font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif!important;opacity:1!important;width:100%!important;display:block!important;visibility:visible!important;}
@@ -307,14 +313,18 @@ function playTheme(){
   audio.loop=true;
   audio.volume=0;
   audio.src=cfg.theme;
-  audio.play().catch(function(){});
-  const target=cfg.themeVolume||0.3;
-  let v=0;
-  themeFading=setInterval(function(){
-    v+=0.008;
-    if(v>=target){v=target;stopThemeFade();}
-    if(audio)audio.volume=v;
-  },40);
+  audio.play().then(function(){
+    // 播放成功后渐入音量
+    const target=cfg.themeVolume||0.25;
+    let v=0;
+    themeFading=setInterval(function(){
+      v+=0.006;
+      if(v>=target){v=target;stopThemeFade();}
+      if(audio)audio.volume=v;
+    },50);
+  }).catch(function(e){
+    console.log("主题曲播放失败:", e);
+  });
 }
 function initAudioVis(){
   if(audioCtx)return;
@@ -366,19 +376,19 @@ function renderApp(){
   const app=document.getElementById("app");
   let html=`
   <div class="stage" id="stage-env">
-    <div class="envelope-wrap"><div class="envelope" id="env"></div><img class="letter" id="letter" src="${cfg.letterImg}" alt="信纸"></div>
+    <div class="envelope-wrap"><div class="envelope" id="env"></div><img loading="eager" decoding="async" class="letter" id="letter" src="${cfg.letterImg}" alt="信纸"></div>
     <div class="tip-text" id="tipEnv">请轻触屏幕启封信笺</div>
     <button class="pink-btn" id="modeBtn">${cfg.btnText||""}</button>
   </div>`;
   if(mode==="happybirthday"){
     html+=`
   <div class="stage hide" id="stage-fanwai">
-    <img class="fanwai-big" id="fanwaiBig" src="${cfg.fanwaiFirst}" alt="">
+    <img loading="eager" decoding="async" class="fanwai-big" id="fanwaiBig" src="${cfg.fanwaiFirst}" alt="">
     <div class="grid-wrap" id="gridWrap">
-      <div class="grid-cell"><img src="${(cfg.fanwaiGrid||[])[0]||""}" alt=""></div>
-      <div class="grid-cell"><img src="${(cfg.fanwaiGrid||[])[1]||""}" alt=""></div>
-      <div class="grid-cell"><img src="${(cfg.fanwaiGrid||[])[2]||""}" alt=""></div>
-      <div class="grid-cell"><img src="${(cfg.fanwaiGrid||[])[3]||""}" alt=""></div>
+      <div class="grid-cell"><img loading="eager" decoding="async" src="${(cfg.fanwaiGrid||[])[0]||""}" alt=""></div>
+      <div class="grid-cell"><img loading="eager" decoding="async" src="${(cfg.fanwaiGrid||[])[1]||""}" alt=""></div>
+      <div class="grid-cell"><img loading="eager" decoding="async" src="${(cfg.fanwaiGrid||[])[2]||""}" alt=""></div>
+      <div class="grid-cell"><img loading="eager" decoding="async" src="${(cfg.fanwaiGrid||[])[3]||""}" alt=""></div>
       <div class="grid-title" id="gridTitle"><h2>${cfg.fanwaiName}</h2><p>${cfg.fanwaiNameEn}</p></div>
     </div>
     <div class="tip-text" id="tipFanwai">轻点屏幕</div>
@@ -455,8 +465,8 @@ function renderApp(){
     html+=`
   <div class="stage hide" id="stage-photo">
     <div class="photo-stack" id="photoStack">
-      <div class="photo-card"><img src="${cfg.photos[0]}" alt=""></div>
-      <div class="photo-card"><img src="${cfg.photos[1]}" alt=""></div>
+      <div class="photo-card"><img loading="eager" decoding="async" src="${cfg.photos[0]}" alt=""></div>
+      <div class="photo-card"><img loading="eager" decoding="async" src="${cfg.photos[1]}" alt=""></div>
     </div>
     <div class="photo-hint">轻触展开 · 再次轻触收回</div>
   </div>`;
@@ -485,6 +495,13 @@ function bindEvents(){
 
   stageEnv.addEventListener("click",function(){
     if(currentStage!==STAGE.ENVELOPE)return;
+    // 如果信已经展开，第二次点击进入番外
+    if(letter.classList.contains("show")&&env.classList.contains("open")){
+      if(mode==="happybirthday"){
+        goFanwai();
+        return;
+      }
+    }
     tipEnv.classList.remove("show");
     letter.classList.add("show");
     playTheme();
@@ -492,7 +509,11 @@ function bindEvents(){
     if(mode==="lucky"||mode==="autumn"){
       setTimeout(function(){modeBtn.classList.add("show");},3000);
     }else if(mode==="happybirthday"){
-      setTimeout(goFanwai,5000);
+      // 信完全展开后显示提示，点击屏幕才进入番外
+      setTimeout(function(){
+        tipEnv.textContent="轻点屏幕 · 进入回忆";
+        tipEnv.classList.add("show");
+      },2200);
     }else if(mode==="photo"){
       setTimeout(goPhoto,2000);
     }
@@ -662,7 +683,7 @@ function bindSongs(){
         else if(diff===2)el.classList.add("next-2");
         else if(diff<-2||diff>2)el.classList.add("far");
       });
-      document.getElementById("lyrics").style.transform="translateY("+(-showIdx*56+56)+"px)";
+      document.getElementById("lyrics").style.transform="translateY("+(-showIdx*64+64)+"px)";
     }
   }
   function loadSong(i,autoplay){
@@ -672,7 +693,7 @@ function bindSongs(){
     stopThemeFade();
     setTheme(s.color);
     audio.loop=false;
-    audio.volume=0.85;
+    audio.volume=0.7;
     audio.onended=randomNext;
     audio.ontimeupdate=function(){
       if(audio.duration){progBar.style.width=(audio.currentTime/audio.duration*100)+"%";}
@@ -730,6 +751,9 @@ function goSongs(){
   if(endEl)endEl.classList.add("hide");
   document.getElementById("stage-songs").classList.remove("hide");
   window.scrollTo(0,0);
+  // 停止主题曲
+  stopThemeFade();
+  if(audio){audio.pause();audio.currentTime=0;}
   ensureAudio();
   var first=Math.floor(Math.random()*(cfg.songs.length));
   window.__loadSong(first,true);
