@@ -461,8 +461,18 @@ function renderApp(){
     <div class="photo-hint">轻触展开 · 再次轻触收回</div>
   </div>`;
   }
-  app.innerHTML=html;
-  bindEvents();
+  try{
+    app.innerHTML=html;
+  }catch(e){
+    console.error("renderApp innerHTML error:",e);
+    throw new Error("renderApp innerHTML: "+e.message);
+  }
+  try{
+    bindEvents();
+  }catch(e){
+    console.error("bindEvents error:",e);
+    throw new Error("bindEvents: "+e.message);
+  }
 }
 
 function bindEvents(){
