@@ -17,9 +17,9 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .stage{width:100vw;min-height:100vh;position:absolute;top:0;left:0;}
 .hide{display:none !important;}
 .envelope-wrap{width:82vw;max-width:420px;aspect-ratio:1.25/1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
-.envelope{width:100%;height:100%;background:url('envelope.JPG') center/contain no-repeat;position:relative;transition:all 1.2s cubic-bezier(0.23,1,0.32,1);}
+.envelope{width:100%;height:100%;background:url('envelope.JPG') center/contain no-repeat,#d4a574;position:relative;transition:all 1.2s cubic-bezier(0.23,1,0.32,1);border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.3);}
 .envelope.open{transform:translateY(-80px) scale(0.85);opacity:0;}
-.letter{width:72vw;max-width:370px;height:auto;position:absolute;left:50%;top:50%;transform:translate(-50%,120%);opacity:0;transition:transform 1.6s cubic-bezier(0.22,1,0.36,1),opacity 1.4s;}
+.letter{width:72vw;max-width:370px;height:auto;position:absolute;left:50%;top:50%;transform:translate(-50%,120%);opacity:0;transition:transform 1.6s cubic-bezier(0.22,1,0.36,1),opacity 1.4s;z-index:10;box-shadow:0 10px 40px rgba(0,0,0,.3);border-radius:4px;}
 .letter.show{opacity:1;transform:translate(-50%,-40%);}
 .tip-text{position:absolute;bottom:14vh;left:50%;transform:translateX(-50%);font-size:1.1rem;letter-spacing:0.22em;color:#775456;font-style:italic;white-space:nowrap;opacity:0;transition:opacity .6s;z-index:5;}
 .tip-text.show{opacity:1;}
@@ -75,11 +75,11 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .songs-bottom{width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:10px;}
 .np-label{display:none;font-size:.7rem;letter-spacing:.46em;color:var(--theme-light);opacity:.9;}
 .np-track{display:none;margin-top:6px;font-size:.74rem;letter-spacing:.3em;color:rgba(243,233,228,.45);font-style:italic;}
-.lyrics-wrap{height:280px!important;overflow:hidden!important;margin:0!important;width:320px!important;max-width:320px!important;flex:0 0 320px!important;min-width:320px!important;display:block!important;position:relative!important;z-index:50!important;background:transparent!important;visibility:visible!important;}
+.lyrics-wrap{height:240px!important;overflow:hidden!important;margin:0!important;width:320px!important;max-width:320px!important;flex:0 0 320px!important;min-width:320px!important;display:block!important;position:relative!important;z-index:50!important;background:transparent!important;visibility:visible!important;}
 .lyrics{transition:transform .6s cubic-bezier(.22,1,.36,1)!important;will-change:transform!important;width:100%!important;display:block!important;position:relative!important;}
-.lyric-line{min-height:56px!important;height:auto!important;line-height:1.5!important;font-size:1rem!important;padding:8px 10px!important;letter-spacing:.05em!important;color:rgba(255,255,255,.35)!important;text-align:center!important;width:100%!important;max-width:100%!important;margin:0 auto!important;padding:0 10px!important;white-space:normal!important;word-break:break-word!important;box-sizing:border-box!important;display:block!important;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
-.lyric-line.active{color:#fff!important;font-size:1.4rem!important;font-weight:700!important;line-height:1.4!important;padding:10px!important;opacity:1!important;text-shadow:0 0 30px var(--theme-glow),0 0 60px var(--theme-glow)!important;transform:scale(1)!important;display:block!important;}
-.lyric-line.prev-1,.lyric-line.next-1{font-size:1.05rem;opacity:.45;line-height:1.5!important;color:rgba(243,233,228,.45);}
+.lyric-line{height:56px!important;line-height:56px!important;font-size:1rem!important;letter-spacing:.05em!important;color:rgba(255,255,255,.35)!important;text-align:center!important;width:100%!important;max-width:100%!important;margin:0 auto!important;white-space:normal!important;word-break:break-word!important;box-sizing:border-box!important;display:block!important;overflow:hidden!important;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
+.lyric-line.active{color:#fff!important;font-size:1.4rem!important;font-weight:700!important;line-height:56px!important;padding:0 10px!important;opacity:1!important;text-shadow:0 0 30px var(--theme-glow),0 0 60px var(--theme-glow)!important;transform:scale(1)!important;display:block!important;}
+.lyric-line.prev-1,.lyric-line.next-1{font-size:1.05rem;opacity:.45;line-height:56px!important;color:rgba(243,233,228,.45);}
 .lyric-line.prev-2,.lyric-line.next-2{font-size:.9rem;opacity:.2;color:rgba(243,233,228,.2);}
 .lyric-line.far{opacity:0;transform:scale(.8);}
 .song-title{font-size:1.25rem!important;font-weight:600!important;color:#fff!important;letter-spacing:.1em!important;margin:0!important;text-align:center!important;text-shadow:0 0 20px var(--theme-glow)!important;font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif!important;opacity:1!important;width:100%!important;display:block!important;visibility:visible!important;}
@@ -313,18 +313,14 @@ function playTheme(){
   audio.loop=true;
   audio.volume=0;
   audio.src=cfg.theme;
-  audio.play().then(function(){
-    // 播放成功后渐入音量
-    const target=cfg.themeVolume||0.25;
-    let v=0;
-    themeFading=setInterval(function(){
-      v+=0.006;
-      if(v>=target){v=target;stopThemeFade();}
-      if(audio)audio.volume=v;
-    },50);
-  }).catch(function(e){
-    console.log("主题曲播放失败:", e);
-  });
+  audio.play().catch(function(){});
+  const target=cfg.themeVolume||0.25;
+  let v=0;
+  themeFading=setInterval(function(){
+    v+=0.008;
+    if(v>=target){v=target;stopThemeFade();}
+    if(audio)audio.volume=v;
+  },40);
 }
 function initAudioVis(){
   if(audioCtx)return;
@@ -507,7 +503,7 @@ function bindEvents(){
     playTheme();
     setTimeout(function(){env.classList.add("open");},1600);
     if(mode==="lucky"||mode==="autumn"){
-      setTimeout(function(){modeBtn.classList.add("show");},3000);
+      setTimeout(function(){modeBtn.classList.add("show");},4000);
     }else if(mode==="happybirthday"){
       // 信完全展开后显示提示，点击屏幕才进入番外
       setTimeout(function(){
@@ -525,10 +521,17 @@ function bindEvents(){
       document.getElementById("stage-env").classList.add("hide");
       document.getElementById("stage-bless").classList.remove("hide");
       setTimeout(function(){
-        currentStage=STAGE.SONGS;
-        document.getElementById("stage-bless").classList.add("hide");
-        goSongs();
-      },2200);
+        const tip=document.createElement("div");
+        tip.className="tip-text";
+        tip.style.cssText="position:absolute;bottom:12vh;left:50%;transform:translateX(-50%);font-size:1rem;letter-spacing:.2em;color:#fff;opacity:.8;z-index:10;";
+        tip.textContent="轻点屏幕 · 聆听音乐";
+        document.getElementById("stage-bless").appendChild(tip);
+        document.getElementById("stage-bless").onclick=function(){
+          currentStage=STAGE.SONGS;
+          document.getElementById("stage-bless").classList.add("hide");
+          goSongs();
+        };
+      },1500);
     };
   }
 
@@ -683,7 +686,7 @@ function bindSongs(){
         else if(diff===2)el.classList.add("next-2");
         else if(diff<-2||diff>2)el.classList.add("far");
       });
-      document.getElementById("lyrics").style.transform="translateY("+(-showIdx*64+64)+"px)";
+      document.getElementById("lyrics").style.transform="translateY("+(-showIdx*56+56)+"px)";
     }
   }
   function loadSong(i,autoplay){
