@@ -62,20 +62,20 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 #stage-songs.autumn-bg{background:radial-gradient(120% 90% at 50% 12%,#1e2a20 0%,#141f16 55%,#0c120e 100%);}
 .songs-glow{position:absolute;width:90vw;height:90vw;max-width:560px;max-height:560px;left:50%;top:30%;transform:translate(-50%,-50%);background:radial-gradient(circle,var(--theme-glow),rgba(0,0,0,0) 68%);pointer-events:none;transition:background .8s;opacity:.7;}
 .songs-box{position:relative;z-index:2;width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:4vh 24px 3vh;text-align:center;box-sizing:border-box;}
-.songs-header{width:100%;text-align:center;margin-bottom:10px;min-height:50px;z-index:10;position:relative;}
-.page-name{font-size:.85rem;letter-spacing:.4em;color:#fff;opacity:.85;margin-bottom:8px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;width:100%;text-align:center;display:block;}
+.songs-header{width:100%!important;text-align:center!important;margin-bottom:10px!important;min-height:50px!important;z-index:100!important;position:relative!important;display:block!important;visibility:visible!important;}
+.page-name{font-size:.85rem!important;letter-spacing:.4em!important;color:#fff!important;opacity:.9!important;margin-bottom:8px!important;font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;width:100%!important;text-align:center!important;display:block!important;visibility:visible!important;}
 .songs-main{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:30px;width:100%;flex:1;min-height:0;}
 .songs-bottom{width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:10px;}
 .np-label{display:none;font-size:.7rem;letter-spacing:.46em;color:var(--theme-light);opacity:.9;}
 .np-track{display:none;margin-top:6px;font-size:.74rem;letter-spacing:.3em;color:rgba(243,233,228,.45);font-style:italic;}
-.lyrics-wrap{height:220px;overflow:hidden;margin:0;width:55%;max-width:400px;flex:1;min-width:200px;display:flex;align-items:center;justify-content:center;position:relative;z-index:3;background:transparent;}
-.lyrics{transition:transform .6s cubic-bezier(.22,1,.36,1);will-change:transform;width:100%;}
-.lyric-line{height:56px;line-height:56px;font-size:1rem;letter-spacing:.05em;color:rgba(243,233,228,.25);text-align:center;width:100%;max-width:100%;margin:0 auto;padding:0 10px;white-space:normal;word-break:break-word;box-sizing:border-word;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
-.lyric-line.active{color:#fff;font-size:1.55rem;font-weight:700;opacity:1;text-shadow:0 0 30px var(--theme-glow),0 0 60px var(--theme-glow);transform:scale(1);}
+.lyrics-wrap{height:220px!important;overflow:hidden!important;margin:0!important;width:55%!important;max-width:400px!important;flex:1!important;min-width:200px!important;display:flex!important;align-items:center!important;justify-content:center!important;position:relative!important;z-index:50!important;background:transparent!important;visibility:visible!important;}
+.lyrics{transition:transform .6s cubic-bezier(.22,1,.36,1)!important;will-change:transform!important;width:100%!important;display:block!important;}
+.lyric-line{height:56px!important;line-height:56px!important;font-size:1rem!important;letter-spacing:.05em!important;color:rgba(243,233,228,.3)!important;text-align:center!important;width:100%!important;max-width:100%!important;margin:0 auto!important;padding:0 10px!important;white-space:normal!important;word-break:break-word!important;box-sizing:border-box!important;display:block!important;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
+.lyric-line.active{color:#fff!important;font-size:1.55rem!important;font-weight:700!important;opacity:1!important;text-shadow:0 0 30px var(--theme-glow),0 0 60px var(--theme-glow)!important;transform:scale(1)!important;display:block!important;}
 .lyric-line.prev-1,.lyric-line.next-1{font-size:1.1rem;opacity:.45;color:rgba(243,233,228,.45);}
 .lyric-line.prev-2,.lyric-line.next-2{font-size:.9rem;opacity:.2;color:rgba(243,233,228,.2);}
 .lyric-line.far{opacity:0;transform:scale(.8);}
-.song-title{font-size:1.25rem;font-weight:600;color:#fff;letter-spacing:.1em;margin:0;text-align:center;text-shadow:0 0 20px var(--theme-glow);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;opacity:1;width:100%;display:block;}
+.song-title{font-size:1.25rem!important;font-weight:600!important;color:#fff!important;letter-spacing:.1em!important;margin:0!important;text-align:center!important;text-shadow:0 0 20px var(--theme-glow)!important;font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif!important;opacity:1!important;width:100%!important;display:block!important;visibility:visible!important;}
 .np-label{font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 .np-track{font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 .vinyl{position:relative;width:160px;height:160px;margin:0;flex-shrink:0;border-radius:50%;z-index:1;background:radial-gradient(circle at center,var(--theme) 0 15%,#0d0a0e 15.5% 18%,rgba(255,255,255,.06) 18.5% 20%,transparent 20.5%),repeating-radial-gradient(circle at center,#17111b 0 3px,#0c0810 3px 6px);box-shadow:0 16px 44px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06);animation:spin 16s linear infinite;animation-play-state:paused;transition:box-shadow .8s;}
@@ -661,6 +661,13 @@ function bindSongs(){
   function toggleList(show){listPanel.classList.toggle("show",show);}
   document.getElementById("btnList").onclick=function(e){e.stopPropagation();toggleList(true);};
   document.getElementById("listClose").onclick=function(e){e.stopPropagation();toggleList(false);};
+  // 点击歌单列表外的区域自动收起
+  document.addEventListener("click",function(e){
+    if(!listPanel.contains(e.target)&&e.target.id!=="btnList"&&!e.target.closest("#btnList")){
+      toggleList(false);
+    }
+  });
+  listPanel.addEventListener("click",function(e){e.stopPropagation();});
   window.__loadSong=loadSong;
   window.__randomNext=randomNext;
   window.__setPlayingUI=setPlayingUI;
