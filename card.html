@@ -629,7 +629,6 @@ function bindSongs(){
       updateLyric();
     };
     audio.src=s.f;
-    npTrack.textContent="Track "+String(i+1).padStart(2,"0")+" / "+String(total).padStart(2,"0");
     const songTitleEl=document.getElementById("songTitle");
     if(songTitleEl)songTitleEl.textContent=s.t||"";
     const pageNameEl=document.getElementById("pageName");
