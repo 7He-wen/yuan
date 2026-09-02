@@ -61,20 +61,24 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 #stage-songs.lucky-bg{background:radial-gradient(120% 90% at 50% 12%,#3a2a1e 0%,#2a1a12 55%,#1a0f08 100%);}
 #stage-songs.autumn-bg{background:radial-gradient(120% 90% at 50% 12%,#1e2a20 0%,#141f16 55%,#0c120e 100%);}
 .songs-glow{position:absolute;width:90vw;height:90vw;max-width:560px;max-height:560px;left:50%;top:30%;transform:translate(-50%,-50%);background:radial-gradient(circle,var(--theme-glow),rgba(0,0,0,0) 68%);pointer-events:none;transition:background .8s;opacity:.7;}
-.songs-box{position:relative;z-index:2;width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5vh 24px 4vh;text-align:center;}
-.np-label{font-size:.7rem;letter-spacing:.46em;color:var(--theme-light);opacity:.9;}
-.np-track{margin-top:6px;font-size:.74rem;letter-spacing:.3em;color:rgba(243,233,228,.45);font-style:italic;}
-.lyrics-wrap{height:200px;overflow:hidden;margin:10px 0 8px;width:100%;display:flex;align-items:center;justify-content:center;position:relative;z-index:3;background:transparent;}
+.songs-box{position:relative;z-index:2;width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:4vh 24px 3vh;text-align:center;box-sizing:border-box;}
+.songs-header{width:100%;text-align:center;margin-bottom:10px;}
+.page-name{font-size:.85rem;letter-spacing:.4em;color:var(--theme-light);opacity:.7;margin-bottom:6px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
+.songs-main{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:30px;width:100%;flex:1;min-height:0;}
+.songs-bottom{width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:10px;}
+.np-label{display:none;font-size:.7rem;letter-spacing:.46em;color:var(--theme-light);opacity:.9;}
+.np-track{display:none;margin-top:6px;font-size:.74rem;letter-spacing:.3em;color:rgba(243,233,228,.45);font-style:italic;}
+.lyrics-wrap{height:220px;overflow:hidden;margin:0;width:55%;max-width:400px;flex:1;min-width:0;display:flex;align-items:center;justify-content:center;position:relative;z-index:3;background:transparent;}
 .lyrics{transition:transform .6s cubic-bezier(.22,1,.36,1);will-change:transform;}
 .lyric-line{height:56px;line-height:56px;font-size:1rem;letter-spacing:.05em;color:rgba(243,233,228,.2);text-align:center;max-width:94%;margin:0 auto;white-space:normal;word-break:break-word;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
 .lyric-line.active{color:var(--theme-light);font-size:1.55rem;font-weight:700;opacity:1;text-shadow:0 0 30px var(--theme-glow),0 0 60px var(--theme-glow);transform:scale(1);}
 .lyric-line.prev-1,.lyric-line.next-1{font-size:1.1rem;opacity:.45;color:rgba(243,233,228,.45);}
 .lyric-line.prev-2,.lyric-line.next-2{font-size:.9rem;opacity:.2;color:rgba(243,233,228,.2);}
 .lyric-line.far{opacity:0;transform:scale(.8);}
-.song-title{font-size:1.1rem;font-weight:600;color:var(--theme-light);letter-spacing:.1em;margin:4px 0 8px;text-align:center;text-shadow:0 0 16px var(--theme-glow);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;opacity:.9;}
+.song-title{font-size:1.2rem;font-weight:600;color:var(--theme-light);letter-spacing:.1em;margin:0;text-align:center;text-shadow:0 0 16px var(--theme-glow);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;opacity:.95;}
 .np-label{font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 .np-track{font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
-.vinyl{position:relative;width:180px;height:180px;margin:6px auto 22px;border-radius:50%;z-index:1;background:radial-gradient(circle at center,var(--theme) 0 15%,#0d0a0e 15.5% 18%,rgba(255,255,255,.06) 18.5% 20%,transparent 20.5%),repeating-radial-gradient(circle at center,#17111b 0 3px,#0c0810 3px 6px);box-shadow:0 16px 44px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06);animation:spin 16s linear infinite;animation-play-state:paused;transition:box-shadow .8s;}
+.vinyl{position:relative;width:160px;height:160px;margin:0;flex-shrink:0;border-radius:50%;z-index:1;background:radial-gradient(circle at center,var(--theme) 0 15%,#0d0a0e 15.5% 18%,rgba(255,255,255,.06) 18.5% 20%,transparent 20.5%),repeating-radial-gradient(circle at center,#17111b 0 3px,#0c0810 3px 6px);box-shadow:0 16px 44px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06);animation:spin 16s linear infinite;animation-play-state:paused;transition:box-shadow .8s;}
 .vinyl.spin{animation-play-state:running;}
 .vinyl::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;transform:translate(-50%,-50%);border-radius:50%;background:#1d1522;box-shadow:0 0 0 3px var(--theme-glow);}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -382,18 +386,23 @@ function renderApp(){
   <div class="stage hide ${cfg.songsClass||""}" id="stage-songs">
     <div class="songs-glow"></div>
     <div class="songs-box">
-      <div class="np-label">NOW PLAYING</div>
-      <div class="np-track" id="npTrack">Track -- / ${String(cfg.songs.length).padStart(2,'0')}</div>
-      <div class="song-title" id="songTitle"></div>
-      <div class="lyrics-wrap"><div class="lyrics" id="lyrics"></div></div>
-      <div class="vinyl" id="vinyl"></div>
-      <div class="progress" id="prog"><div class="progress-bar" id="progBar"></div></div>
-      <div class="songs-ctrl">
-        <button class="ctrl" id="btnShuffle">${ICON_PREV}</button>
-        <button class="ctrl main" id="btnPlayPause">${ICON_PAUSE}</button>
-        <button class="ctrl" id="btnNextSong">${ICON_NEXT}</button>
+      <div class="songs-header">
+        <div class="page-name" id="pageName"></div>
+        <div class="song-title" id="songTitle"></div>
       </div>
-      <button class="list-toggle" id="btnList">♪ 播放列表</button>
+      <div class="songs-main">
+        <div class="vinyl" id="vinyl"></div>
+        <div class="lyrics-wrap"><div class="lyrics" id="lyrics"></div></div>
+      </div>
+      <div class="progress" id="prog"><div class="progress-bar" id="progBar"></div></div>
+      <div class="songs-bottom">
+        <div class="songs-ctrl">
+          <button class="ctrl" id="btnShuffle">${ICON_PREV}</button>
+          <button class="ctrl main" id="btnPlayPause">${ICON_PAUSE}</button>
+          <button class="ctrl" id="btnNextSong">${ICON_NEXT}</button>
+        </div>
+        <button class="list-toggle" id="btnList">♪ 播放列表</button>
+      </div>
     </div>
     <div class="list-panel" id="listPanel">
       <h4>PLAYLIST</h4>
@@ -574,7 +583,7 @@ function bindSongs(){
     }
     lyricLines.forEach(function(x){
       const d=document.createElement("div");
-      d.className="lyric-line far";
+      d.className="lyric-line";
       d.textContent=x.l;
       box.appendChild(d);
     });
@@ -582,17 +591,20 @@ function bindSongs(){
     updateLyric();
   }
   function updateLyric(){
-    if(!audio||!audio.currentTime)return;
+    if(!audio||!lyricLines||!lyricLines.length)return;
     let idx=-1;
+    const ct=audio?audio.currentTime:0;
     for(let i=0;i<lyricLines.length;i++){
-      if(audio.currentTime>=lyricLines[i].t)idx=i;
+      if(ct>=lyricLines[i].t)idx=i;
     }
-    if(idx!==lyricIndex&&idx>=0){
-      lyricIndex=idx;
+    // 前奏阶段(idx=-1)默认显示第0句
+    const showIdx=idx>=0?idx:0;
+    if(showIdx!==lyricIndex){
+      lyricIndex=showIdx;
       const lines=document.querySelectorAll(".lyric-line");
       lines.forEach(function(el,i){
         el.classList.remove("active","prev-1","prev-2","next-1","next-2","far");
-        const diff=i-idx;
+        const diff=i-showIdx;
         if(diff===0)el.classList.add("active");
         else if(diff===-1)el.classList.add("prev-1");
         else if(diff===-2)el.classList.add("prev-2");
@@ -600,7 +612,7 @@ function bindSongs(){
         else if(diff===2)el.classList.add("next-2");
         else if(diff<-2||diff>2)el.classList.add("far");
       });
-      document.getElementById("lyrics").style.transform="translateY("+(-idx*56+56)+"px)";
+      document.getElementById("lyrics").style.transform="translateY("+(-showIdx*56+56)+"px)";
     }
   }
   function loadSong(i,autoplay){
@@ -620,6 +632,8 @@ function bindSongs(){
     npTrack.textContent="Track "+String(i+1).padStart(2,"0")+" / "+String(total).padStart(2,"0");
     const songTitleEl=document.getElementById("songTitle");
     if(songTitleEl)songTitleEl.textContent=s.t||"";
+    const pageNameEl=document.getElementById("pageName");
+    if(pageNameEl){pageNameEl.textContent=mode==="happybirthday"?"生日快乐":mode==="lucky"?"幸运":mode==="autumn"?"秋天":"音乐";}
     highlight(i);
     buildLyrics(s);
     progBar.style.width="0%";
