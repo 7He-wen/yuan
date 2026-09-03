@@ -115,38 +115,40 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 @media(min-width:769px){
   .songs-main{flex-direction:row!important;gap:40px!important;}
   .vinyl{width:180px!important;height:180px!important;}
-  .lyrics-wrap{width:360px!important;max-width:360px!important;flex:0 0 360px!important;height:260px!important;}
+  .lyrics-wrap{width:420px!important;max-width:420px!important;flex:0 0 420px!important;height:260px!important;}
   .song-title{font-size:1.4rem!important;}
 }
 /* 手机端（宽度<=768px）：上下布局 */
 @media(max-width:768px){
   .songs-page{overflow:hidden!important;}
-  .songs-main{flex-direction:column!important;gap:0px!important;align-items:center!important;justify-content:center!important;padding-left:0px!important;overflow:visible!important;position:relative!important;height:auto!important;min-height:0!important;flex:0 0 auto!important;}
+  .songs-main{flex-direction:column!important;gap:0px!important;align-items:center!important;justify-content:center!important;padding-left:0px!important;overflow:visible!important;position:relative!important;height:auto!important;min-height:0!important;flex:1!important;}
   .vinyl{display:none!important;}
   .lyrics-wrap{width:100%!important;max-width:100%!important;min-width:0!important;flex:0 0 auto!important;height:250px!important;order:1!important;overflow:hidden!important;margin-top:0px!important;margin-bottom:0px!important;background:transparent!important;margin-left:0px!important;position:relative!important;z-index:2!important;}
   #lyrics{position:relative!important;width:100%!important;padding:0 8px!important;box-sizing:border-box!important;}
-  .lyric-line{overflow:visible!important;white-space:nowrap!important;word-break:normal!important;padding:0!important;width:100%!important;max-width:100%!important;background:transparent!important;box-shadow:none!important;font-size:.8rem!important;line-height:50px!important;height:50px!important;text-align:center!important;transition:all .4s ease!important;}
-  .lyric-line.active{font-size:1.05rem!important;background:transparent!important;box-shadow:none!important;transform:scale(1.08)!important;color:#fff!important;opacity:1!important;font-weight:700!important;text-shadow:0 2px 12px rgba(0,0,0,.4)!important;}
-  .lyric-line.next-1{font-size:.8rem!important;opacity:.5!important;transform:scale(.92)!important;}
-  .lyric-line.prev-1{font-size:.8rem!important;opacity:.5!important;transform:scale(.92)!important;}
-  .lyric-line.prev-2,.lyric-line.next-2{font-size:.72rem!important;opacity:.35!important;transform:scale(.85)!important;}
-  .songs-header{margin-bottom:10px!important;}
+  .lyric-line{overflow:visible!important;white-space:nowrap!important;word-break:normal!important;padding:0!important;width:100%!important;max-width:100%!important;background:transparent!important;box-shadow:none!important;font-size:.82rem!important;line-height:50px!important;height:50px!important;text-align:center!important;transition:all .4s ease!important;}
+  .lyric-line.active{font-size:1.08rem!important;background:transparent!important;box-shadow:none!important;transform:scale(1.08)!important;color:#fff!important;opacity:1!important;font-weight:700!important;text-shadow:0 2px 12px rgba(0,0,0,.4)!important;}
+  .lyric-line.next-1{font-size:.82rem!important;opacity:.55!important;transform:scale(.92)!important;}
+  .lyric-line.prev-1{font-size:.82rem!important;opacity:.55!important;transform:scale(.92)!important;}
+  .lyric-line.prev-2,.lyric-line.next-2{font-size:.75rem!important;opacity:.4!important;transform:scale(.85)!important;}
+  .songs-header{margin-bottom:0px!important;}
   .song-title{font-size:1.1rem!important;}
   .page-name{font-size:.7rem!important;}
   .np-track{font-size:.65rem!important;}
-  .songs-box{padding:3vh 16px 2vh!important;display:flex!important;flex-direction:column!important;min-height:100vh!important;box-sizing:border-box!important;justify-content:space-between!important;}
+  .songs-box{padding:3vh 16px 3vh!important;display:flex!important;flex-direction:column!important;min-height:100vh!important;box-sizing:border-box!important;}
   .songs-bottom{margin-top:0px!important;padding-top:0px!important;}
-  .progress{width:100%!important;max-width:100%!important;margin:0 0 20px!important;}
+  .progress{width:100%!important;max-width:100%!important;margin:0 0 16px!important;}
   .ctrl{width:48px!important;height:48px!important;}
   .ctrl.main{width:64px!important;height:64px!important;}
-  .songs-ctrl{gap:24px!important;margin-bottom:16px!important;}
+  .songs-ctrl{gap:24px!important;margin-bottom:12px!important;}
 }
 /* 小屏手机（宽度<=480px） */
 @media(max-width:480px){
-  .vinyl{width:120px!important;height:120px!important;}
-  .lyrics-wrap{height:160px!important;}
-  .lyric-line{height:48px!important;line-height:48px!important;font-size:.9rem!important;}
-  .lyric-line.active{font-size:1.3rem!important;}
+  .vinyl{display:none!important;}
+  .lyrics-wrap{height:250px!important;}
+  .lyric-line{height:50px!important;line-height:50px!important;font-size:.82rem!important;}
+  .lyric-line.active{font-size:1.08rem!important;}
+  .lyric-line.next-1,.lyric-line.prev-1{font-size:.82rem!important;opacity:.55!important;}
+  .lyric-line.prev-2,.lyric-line.next-2{font-size:.75rem!important;opacity:.4!important;}
 }
 
 /* ============ photo模式：堆叠照片 ============ */
