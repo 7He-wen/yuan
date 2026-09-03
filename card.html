@@ -121,25 +121,25 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 /* 手机端（宽度<=768px）：上下布局 */
 @media(max-width:768px){
   .songs-page{overflow:hidden!important;}
-  .songs-main{flex-direction:column!important;gap:0px!important;align-items:center!important;justify-content:flex-start!important;padding-left:0px!important;overflow:visible!important;position:relative!important;height:auto!important;min-height:0!important;flex:1!important;}
+  .songs-main{flex-direction:column!important;gap:0px!important;align-items:center!important;justify-content:center!important;padding-left:0px!important;overflow:visible!important;position:relative!important;height:auto!important;min-height:0!important;flex:0 0 auto!important;}
   .vinyl{display:none!important;}
   .lyrics-wrap{width:100%!important;max-width:100%!important;min-width:0!important;flex:0 0 auto!important;height:250px!important;order:1!important;overflow:hidden!important;margin-top:0px!important;margin-bottom:0px!important;background:transparent!important;margin-left:0px!important;position:relative!important;z-index:2!important;}
   #lyrics{position:relative!important;width:100%!important;padding:0 8px!important;box-sizing:border-box!important;}
-  .lyric-line{overflow:visible!important;white-space:nowrap!important;word-break:normal!important;padding:0!important;width:100%!important;max-width:100%!important;background:transparent!important;box-shadow:none!important;font-size:.78rem!important;line-height:50px!important;height:50px!important;text-align:center!important;transition:all .4s ease!important;}
-  .lyric-line.active{font-size:1rem!important;background:transparent!important;box-shadow:none!important;transform:scale(1.08)!important;color:#fff!important;opacity:1!important;font-weight:700!important;text-shadow:0 2px 12px rgba(0,0,0,.4)!important;}
-  .lyric-line.next-1{font-size:.78rem!important;opacity:.45!important;transform:scale(.92)!important;}
-  .lyric-line.prev-1{font-size:.78rem!important;opacity:.45!important;transform:scale(.92)!important;}
-  .lyric-line.prev-2,.lyric-line.next-2{font-size:.68rem!important;opacity:.25!important;transform:scale(.82)!important;}
-  .songs-header{margin-bottom:8px!important;}
+  .lyric-line{overflow:visible!important;white-space:nowrap!important;word-break:normal!important;padding:0!important;width:100%!important;max-width:100%!important;background:transparent!important;box-shadow:none!important;font-size:.8rem!important;line-height:50px!important;height:50px!important;text-align:center!important;transition:all .4s ease!important;}
+  .lyric-line.active{font-size:1.05rem!important;background:transparent!important;box-shadow:none!important;transform:scale(1.08)!important;color:#fff!important;opacity:1!important;font-weight:700!important;text-shadow:0 2px 12px rgba(0,0,0,.4)!important;}
+  .lyric-line.next-1{font-size:.8rem!important;opacity:.5!important;transform:scale(.92)!important;}
+  .lyric-line.prev-1{font-size:.8rem!important;opacity:.5!important;transform:scale(.92)!important;}
+  .lyric-line.prev-2,.lyric-line.next-2{font-size:.72rem!important;opacity:.35!important;transform:scale(.85)!important;}
+  .songs-header{margin-bottom:10px!important;}
   .song-title{font-size:1.1rem!important;}
   .page-name{font-size:.7rem!important;}
   .np-track{font-size:.65rem!important;}
-  .songs-box{padding:2vh 16px 1.5vh!important;display:flex!important;flex-direction:column!important;min-height:100vh!important;box-sizing:border-box!important;}
-  .songs-bottom{margin-top:auto!important;padding-top:10px!important;}
-  .progress{width:100%!important;max-width:100%!important;margin:0 0 16px!important;}
+  .songs-box{padding:3vh 16px 2vh!important;display:flex!important;flex-direction:column!important;min-height:100vh!important;box-sizing:border-box!important;justify-content:space-between!important;}
+  .songs-bottom{margin-top:0px!important;padding-top:0px!important;}
+  .progress{width:100%!important;max-width:100%!important;margin:0 0 20px!important;}
   .ctrl{width:48px!important;height:48px!important;}
   .ctrl.main{width:64px!important;height:64px!important;}
-  .songs-ctrl{gap:24px!important;}
+  .songs-ctrl{gap:24px!important;margin-bottom:16px!important;}
 }
 /* 小屏手机（宽度<=480px） */
 @media(max-width:480px){
@@ -688,8 +688,20 @@ function bindSongs(){
       const lines=document.querySelectorAll(".lyric-line");
       lines.forEach(function(el,i){
         el.classList.remove("active","prev-1","prev-2","next-1","next-2","far");
+        el.style.fontSize="";
         const diff=i-showIdx;
-        if(diff===0)el.classList.add("active");
+        if(diff===0){
+          el.classList.add("active");
+          // 长歌词动态缩小字号，确保全部展示
+          const text=lyricLines[i]?lyricLines[i].l:"";
+          const isMobile=window.innerWidth<=768;
+          const containerW=isMobile?window.innerWidth-32:320;
+          const baseSize=isMobile?1.05:1.4;
+          if(text.length>12){
+            const shrink=Math.max(0.65,1-(text.length-12)*0.025);
+            el.style.fontSize=(baseSize*shrink)+"rem";
+          }
+        }
         else if(diff===-1)el.classList.add("prev-1");
         else if(diff===-2)el.classList.add("prev-2");
         else if(diff===1)el.classList.add("next-1");
