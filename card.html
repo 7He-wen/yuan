@@ -78,7 +78,7 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .np-track{display:none;margin-top:6px;font-size:.74rem;letter-spacing:.3em;color:rgba(243,233,228,.45);font-style:italic;}
 .lyrics-wrap{height:280px!important;overflow:hidden!important;margin:0!important;width:320px!important;max-width:320px!important;flex:0 0 320px!important;min-width:320px!important;display:block!important;position:relative!important;z-index:50!important;background:transparent!important;visibility:visible!important;}
 .lyrics{transition:transform .6s cubic-bezier(.22,1,.36,1)!important;will-change:transform!important;width:100%!important;display:block!important;position:relative!important;}
-.lyric-line{height:56px!important;line-height:56px!important;font-size:1rem!important;letter-spacing:.05em!important;color:rgba(255,255,255,.35)!important;text-align:center!important;width:100%!important;max-width:100%!important;margin:0 auto!important;padding:0 10px!important;white-space:normal!important;word-break:break-word!important;box-sizing:border-box!important;display:block!important;overflow:hidden!important;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
+.lyric-line{height:56px!important;line-height:56px!important;font-size:1rem!important;letter-spacing:.05em!important;color:rgba(255,255,255,.35)!important;text-align:center!important;width:100%!important;overflow:visible!important;white-space:nowrap!important;max-width:100%!important;margin:0 auto!important;padding:0 10px!important;white-space:normal!important;word-break:break-word!important;box-sizing:border-box!important;display:block!important;overflow:hidden!important;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
 .lyric-line.active{color:#fff!important;font-size:1.4rem!important;font-weight:700!important;line-height:56px!important;padding:0 10px!important;opacity:1!important;display:block!important;}
 .lyric-line.prev-1,.lyric-line.next-1{font-size:1.05rem;opacity:.45;line-height:56px!important;color:rgba(243,233,228,.45);}
 .lyric-line.prev-2,.lyric-line.next-2{font-size:.85rem;opacity:.25;color:rgba(243,233,228,.25);transform:scale(.82)!important;}
@@ -86,7 +86,7 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .song-title{font-size:1.25rem!important;font-weight:600!important;color:#fff!important;letter-spacing:.1em!important;margin:0!important;text-align:center!important;text-shadow:0 0 20px var(--theme-glow)!important;font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif!important;opacity:1!important;width:100%!important;display:block!important;visibility:visible!important;}
 .np-label{font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 .np-track{font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
-.vinyl{position:relative;width:160px;height:160px;margin:0 0 0 20px;flex-shrink:0;border-radius:50%;z-index:1;background:radial-gradient(circle at center,var(--theme) 0 15%,#0d0a0e 15.5% 18%,rgba(255,255,255,.06) 18.5% 20%,transparent 20.5%),repeating-radial-gradient(circle at center,#17111b 0 3px,#0c0810 3px 6px);box-shadow:0 16px 44px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06);animation:spin 16s linear infinite;animation-play-state:paused;transition:box-shadow .8s;}
+.vinyl{position:relative;width:190px;height:190px;margin:0 0 0 35px;flex-shrink:0;border-radius:50%;z-index:1;background:radial-gradient(circle at center,var(--theme) 0 15%,#0d0a0e 15.5% 18%,rgba(255,255,255,.06) 18.5% 20%,transparent 20.5%),repeating-radial-gradient(circle at center,#17111b 0 3px,#0c0810 3px 6px);box-shadow:0 16px 44px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06);animation:spin 16s linear infinite;animation-play-state:paused;transition:box-shadow .8s;}
 .vinyl.spin{animation-play-state:running;}
 .vinyl::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;transform:translate(-50%,-50%);border-radius:50%;background:#1d1522;box-shadow:0 0 0 3px var(--theme-glow), 0 0 var(--vinyl-center-glow,0px) var(--theme-glow);transition:box-shadow .1s;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -118,8 +118,8 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 /* 电脑端/iPad（宽度>768px）：左右布局 */
 @media(min-width:769px){
   .songs-main{flex-direction:row!important;gap:20px!important;}
-  .vinyl{width:160px!important;height:160px!important;}
-  .lyrics-wrap{width:450px!important;max-width:450px!important;flex:0 0 450px!important;min-width:450px!important;height:260px!important;}
+  .vinyl{width:190px!important;height:190px!important;}
+  .lyrics-wrap{flex:1!important;width:auto!important;max-width:none!important;min-width:0!important;height:280px!important;position:relative!important;z-index:2!important;}
   .song-title{font-size:1.4rem!important;}
 }
 /* 手机端（宽度<=768px）：上下布局 */
@@ -168,8 +168,8 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 @keyframes hintPulse{0%,100%{opacity:.4;}50%{opacity:.85;}}
 
 /* 频谱光柱容器 */
-.spectrum-wrap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:220px;height:220px;pointer-events:none;z-index:1;}
-.spectrum-bar{position:absolute;left:50%;bottom:50%;width:3px;height:8px;background:linear-gradient(to top,var(--theme-glow),rgba(255,255,255,.6));border-radius:2px;transform-origin:bottom center;transition:height .08s ease,opacity .2s;opacity:.7;}
+.spectrum-wrap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:100%;height:100%;pointer-events:none;z-index:0;}
+.spectrum-bar{position:absolute;left:50%;top:50%;width:2px;height:6px;background:linear-gradient(to top,rgba(255,255,255,.8),rgba(255,255,255,.2));border-radius:2px;transform-origin:center center;transition:height .08s ease,opacity .2s;opacity:.6;}
 @media(max-width:768px){.spectrum-wrap{display:none!important;}}
 
 </style>
@@ -363,7 +363,7 @@ function initSpectrumBars(){
     const bar=document.createElement('div');
     bar.className='spectrum-bar';
     const angle=(i/count)*360;
-    bar.style.transform='rotate('+angle+'deg)';
+    bar.style.transform='translate(-50%,-50%) rotate('+angle+'deg) translateY(-50%)';
     wrap.appendChild(bar);
     spectrumBars.push(bar);
   }
@@ -513,7 +513,7 @@ function renderApp(){
   if(cfg.songs){
     html+=`
   <div class="stage hide ${cfg.songsClass||""}" id="stage-songs">
-    <div class="songs-bg"></div><div class="songs-glow"></div><div class="spectrum-wrap" id="spectrumWrap"></div>
+    <div class="songs-bg"></div><div class="songs-glow"></div>
     <div class="songs-box">
       <div class="songs-header">
         <div class="page-name" id="pageName"></div>
@@ -521,7 +521,7 @@ function renderApp(){
         <div class="song-title" id="songTitle"></div>
       </div>
       <div class="songs-main">
-        <div class="vinyl" id="vinyl"></div>
+        <div class="vinyl" id="vinyl"><div class="spectrum-wrap" id="spectrumWrap"></div></div>
         <div class="lyrics-wrap"><div class="lyrics" id="lyrics"></div></div>
       </div>
       <div class="progress" id="prog"><div class="progress-bar" id="progBar"></div></div>
@@ -531,7 +531,7 @@ function renderApp(){
           <button class="ctrl main" id="btnPlayPause">${ICON_PAUSE}</button>
           <button class="ctrl" id="btnNextSong">${ICON_NEXT}</button>
         </div>
-        <div style="display:flex;align-items:center;gap:12px;"><button class="list-toggle" id="btnList">♪ 播放列表</button><button class="mode-toggle" id="btnMode">${ICON_RANDOM}</button></div>
+        <div style="display:flex;align-items:center;gap:12px;justify-content:center;width:100%;"><button class="list-toggle" id="btnList">♪ 播放列表</button><button class="mode-toggle" id="btnMode">${ICON_RANDOM}</button></div>
       </div>
     </div>
     <div class="list-panel" id="listPanel">
