@@ -75,7 +75,7 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .songs-bottom{width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:10px;}
 .np-label{display:none;font-size:.7rem;letter-spacing:.46em;color:var(--theme-light);opacity:.9;}
 .np-track{display:none;margin-top:6px;font-size:.74rem;letter-spacing:.3em;color:rgba(243,233,228,.45);font-style:italic;}
-.lyrics-wrap{height:240px!important;overflow:hidden!important;margin:0!important;width:320px!important;max-width:320px!important;flex:0 0 320px!important;min-width:320px!important;display:block!important;position:relative!important;z-index:50!important;background:transparent!important;visibility:visible!important;}
+.lyrics-wrap{height:280px!important;overflow:hidden!important;margin:0!important;width:320px!important;max-width:320px!important;flex:0 0 320px!important;min-width:320px!important;display:block!important;position:relative!important;z-index:50!important;background:transparent!important;visibility:visible!important;}
 .lyrics{transition:transform .6s cubic-bezier(.22,1,.36,1)!important;will-change:transform!important;width:100%!important;display:block!important;position:relative!important;}
 .lyric-line{height:56px!important;line-height:56px!important;font-size:1rem!important;letter-spacing:.05em!important;color:rgba(255,255,255,.35)!important;text-align:center!important;width:100%!important;max-width:100%!important;margin:0 auto!important;padding:0 10px!important;white-space:normal!important;word-break:break-word!important;box-sizing:border-box!important;display:block!important;overflow:hidden!important;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
 .lyric-line.active{color:#fff!important;font-size:1.4rem!important;font-weight:700!important;line-height:56px!important;padding:0 10px!important;opacity:1!important;transform:scale(1)!important;display:block!important;}
@@ -121,14 +121,14 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 /* 手机端（宽度<=768px）：上下布局 */
 @media(max-width:768px){
   .songs-main{flex-direction:row!important;gap:0px!important;align-items:center!important;justify-content:flex-start!important;padding-left:8px!important;}
-  .vinyl{width:125px!important;height:125px!important;order:1!important;flex:0 0 auto!important;margin-left:-20px!important;margin-top:0px!important;margin-bottom:0px!important;}
-  .lyrics-wrap{width:65%!important;max-width:65%!important;min-width:0!important;flex:0 0 65%!important;height:168px!important;order:2!important;overflow:hidden!important;margin-top:0px!important;background:transparent!important;}
+  .vinyl{width:115px!important;height:115px!important;order:1!important;flex:0 0 auto!important;margin-left:-15px!important;margin-top:0px!important;margin-bottom:0px!important;}
+  .lyrics-wrap{width:62%!important;max-width:62%!important;min-width:0!important;flex:0 0 62%!important;height:250px!important;order:2!important;overflow:hidden!important;margin-top:0px!important;background:transparent!important;}
   #lyrics{position:relative!important;width:100%!important;}
-  .lyric-line{overflow:visible!important;white-space:nowrap!important;word-break:normal!important;padding:0!important;width:100%!important;max-width:100%!important;background:transparent!important;box-shadow:none!important;}
-  .lyric-line.active{font-size:1.3rem!important;background:transparent!important;box-shadow:none!important;transform:scale(1.12)!important;}
-  .lyric-line.next-1{font-size:0.9rem!important;opacity:.4!important;transform:scale(.88)!important;}
-  .lyric-line.prev-1{font-size:0.9rem!important;opacity:.4!important;transform:scale(.88)!important;}
-  .lyric-line.prev-2,.lyric-line.next-2{opacity:0!important;transform:scale(.7)!important;}
+  .lyric-line{overflow:visible!important;white-space:nowrap!important;word-break:normal!important;padding:0!important;width:100%!important;max-width:100%!important;background:transparent!important;box-shadow:none!important;font-size:.85rem!important;line-height:50px!important;height:50px!important;}
+  .lyric-line.active{font-size:1.15rem!important;background:transparent!important;box-shadow:none!important;transform:scale(1.1)!important;color:#fff!important;opacity:1!important;}
+  .lyric-line.next-1{font-size:.85rem!important;opacity:.45!important;transform:scale(.9)!important;}
+  .lyric-line.prev-1{font-size:.85rem!important;opacity:.45!important;transform:scale(.9)!important;}
+  .lyric-line.prev-2,.lyric-line.next-2{font-size:.75rem!important;opacity:.25!important;transform:scale(.8)!important;}
   .songs-header{margin-bottom:15px!important;}
   .song-title{font-size:1.1rem!important;}
   .page-name{font-size:.7rem!important;}
@@ -692,7 +692,7 @@ function bindSongs(){
         else if(diff===2)el.classList.add("next-2");
         else if(diff<-2||diff>2)el.classList.add("far");
       });
-      document.getElementById("lyrics").style.transform="translateY("+(-showIdx*56+56)+"px)";
+      var lineH=window.innerWidth<=768?50:56;document.getElementById("lyrics").style.transform="translateY("+(-showIdx*lineH+lineH*2)+"px)";
     }
   }
   function loadSong(i,autoplay){
