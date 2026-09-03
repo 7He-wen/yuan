@@ -120,12 +120,12 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 }
 /* 手机端（宽度<=768px）：上下布局 */
 @media(max-width:768px){
-  .songs-main{flex-direction:column!important;gap:20px!important;}
-  .vinyl{width:140px!important;height:140px!important;order:1!important;}
-  .lyrics-wrap{width:90%!important;overflow:hidden!important;}
+  .songs-main{flex-direction:row!important;gap:10px!important;align-items:center!important;justify-content:center!important;}
+  .vinyl{width:110px!important;height:110px!important;order:1!important;flex:0 0 auto!important;margin-left:-35px!important;margin-top:0px!important;margin-bottom:0px!important;}
+  .lyrics-wrap{width:55%!important;max-width:55%!important;flex:0 0 auto!important;height:180px!important;order:2!important;min-width:0!important;overflow:hidden!important;margin-top:0px!important;}
   .lyric-line{overflow:visible!important;white-space:nowrap!important;word-break:normal!important;padding:0!important;}
-  .lyric-line.active{font-size:1.1rem!important;}
-  .lyric-line.next-1{font-size:0.95rem!important;};max-width:90%!important;flex:0 0 auto!important;height:180px!important;order:2!important;min-width:0!important;}
+  .lyric-line.active{font-size:1rem!important;}
+  .lyric-line.next-1{font-size:0.85rem!important;}
   .songs-header{margin-bottom:15px!important;}
   .song-title{font-size:1.1rem!important;}
   .page-name{font-size:.7rem!important;}
