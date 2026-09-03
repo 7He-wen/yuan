@@ -86,7 +86,7 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .song-title{font-size:1.25rem!important;font-weight:600!important;color:#fff!important;letter-spacing:.1em!important;margin:0!important;text-align:center!important;text-shadow:0 0 20px var(--theme-glow)!important;font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif!important;opacity:1!important;width:100%!important;display:block!important;visibility:visible!important;}
 .np-label{font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 .np-track{font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
-.vinyl{position:relative;width:160px;height:160px;margin:0;flex-shrink:0;border-radius:50%;z-index:1;background:radial-gradient(circle at center,var(--theme) 0 15%,#0d0a0e 15.5% 18%,rgba(255,255,255,.06) 18.5% 20%,transparent 20.5%),repeating-radial-gradient(circle at center,#17111b 0 3px,#0c0810 3px 6px);box-shadow:0 16px 44px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06);animation:spin 16s linear infinite;animation-play-state:paused;transition:box-shadow .8s;}
+.vinyl{position:relative;width:160px;height:160px;margin:0 0 0 20px;flex-shrink:0;border-radius:50%;z-index:1;background:radial-gradient(circle at center,var(--theme) 0 15%,#0d0a0e 15.5% 18%,rgba(255,255,255,.06) 18.5% 20%,transparent 20.5%),repeating-radial-gradient(circle at center,#17111b 0 3px,#0c0810 3px 6px);box-shadow:0 16px 44px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06);animation:spin 16s linear infinite;animation-play-state:paused;transition:box-shadow .8s;}
 .vinyl.spin{animation-play-state:running;}
 .vinyl::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;transform:translate(-50%,-50%);border-radius:50%;background:#1d1522;box-shadow:0 0 0 3px var(--theme-glow), 0 0 var(--vinyl-center-glow,0px) var(--theme-glow);transition:box-shadow .1s;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -185,6 +185,7 @@ const ICON_ORDER='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
 const ICON_REVERSE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12H3"/><path d="M21 6H3"/><path d="M21 18H9"/><path d="M7 8l-4 4 4 4"/></svg>';
 const ICON_LOOP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>';
 const ICON_LOOP_ONE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/><text x="12" y="15" text-anchor="middle" font-size="8" fill="currentColor" stroke="none">1</text></svg>';
+
 const ICON_PAUSE='<svg viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>';
 const ICON_PREV='<svg viewBox="0 0 24 24"><path d="M18 6v12l-8-6zM6 6h2.4v12H6z"/></svg>';
 const ICON_NEXT='<svg viewBox="0 0 24 24"><path d="M6 6v12l8-6zM15.6 6H18v12h-2.4z"/></svg>';
@@ -411,7 +412,7 @@ function startVisLoop(){
     treble/=(q*255);
     // 歌词律动
     const active=document.querySelector('.lyric-line.active');
-    if(active)active.style.transform='scale('+(1+bass*0.22)+')';
+    if(active)active.style.transform='scale('+(1+bass*0.35)+')';
     // 黑胶光晕
     const vinyl=document.getElementById('vinyl');
     if(vinyl)vinyl.style.boxShadow='0 16px '+(34+bass*30)+'px rgba(0,0,0,.6), 0 0 '+(bass*70)+'px var(--theme-glow), inset 0 0 0 1px rgba(255,255,255,.06)';
@@ -530,7 +531,7 @@ function renderApp(){
           <button class="ctrl main" id="btnPlayPause">${ICON_PAUSE}</button>
           <button class="ctrl" id="btnNextSong">${ICON_NEXT}</button>
         </div>
-        <div style="display:flex;align-items:center;gap:12px;justify-content:flex-end;width:100%;"><button class="mode-toggle" id="btnMode">${ICON_RANDOM}</button><button class="list-toggle" id="btnList">♪ 播放列表</button></div>
+        <div style="display:flex;align-items:center;gap:12px;"><button class="list-toggle" id="btnList">♪ 播放列表</button><button class="mode-toggle" id="btnMode">${ICON_RANDOM}</button></div>
       </div>
     </div>
     <div class="list-panel" id="listPanel">
