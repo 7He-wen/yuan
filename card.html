@@ -80,7 +80,7 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .lyric-line{height:56px!important;line-height:56px!important;font-size:1rem!important;letter-spacing:.05em!important;color:rgba(255,255,255,.35)!important;text-align:center!important;width:100%!important;max-width:100%!important;margin:0 auto!important;padding:0 10px!important;white-space:normal!important;word-break:break-word!important;box-sizing:border-box!important;display:block!important;overflow:hidden!important;transition:all .5s cubic-bezier(.22,1,.36,1);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans CN",sans-serif;font-weight:400;}
 .lyric-line.active{color:#fff!important;font-size:1.4rem!important;font-weight:700!important;line-height:56px!important;padding:0 10px!important;opacity:1!important;transform:scale(1)!important;display:block!important;}
 .lyric-line.prev-1,.lyric-line.next-1{font-size:1.05rem;opacity:.45;line-height:56px!important;color:rgba(243,233,228,.45);}
-.lyric-line.prev-2,.lyric-line.next-2{font-size:.9rem;opacity:.2;color:rgba(243,233,228,.2);}
+.lyric-line.prev-2,.lyric-line.next-2{font-size:.85rem;opacity:.25;color:rgba(243,233,228,.25);transform:scale(.82)!important;}
 .lyric-line.far{opacity:0;transform:scale(.8);}
 .song-title{font-size:1.25rem!important;font-weight:600!important;color:#fff!important;letter-spacing:.1em!important;margin:0!important;text-align:center!important;text-shadow:0 0 20px var(--theme-glow)!important;font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif!important;opacity:1!important;width:100%!important;display:block!important;visibility:visible!important;}
 .np-label{font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
@@ -122,12 +122,13 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 @media(max-width:768px){
   .songs-main{flex-direction:row!important;gap:0px!important;align-items:center!important;justify-content:flex-start!important;padding-left:8px!important;}
   .vinyl{width:125px!important;height:125px!important;order:1!important;flex:0 0 auto!important;margin-left:-20px!important;margin-top:0px!important;margin-bottom:0px!important;}
-  .lyrics-wrap{width:65%!important;max-width:65%!important;min-width:0!important;flex:0 0 65%!important;height:224px!important;order:2!important;overflow:visible!important;margin-top:0px!important;background:transparent!important;}
+  .lyrics-wrap{width:65%!important;max-width:65%!important;min-width:0!important;flex:0 0 65%!important;height:168px!important;order:2!important;overflow:hidden!important;margin-top:0px!important;background:transparent!important;}
   #lyrics{position:relative!important;width:100%!important;}
   .lyric-line{overflow:visible!important;white-space:nowrap!important;word-break:normal!important;padding:0!important;width:100%!important;max-width:100%!important;background:transparent!important;box-shadow:none!important;}
-  .lyric-line.active{font-size:1.25rem!important;background:transparent!important;box-shadow:none!important;}
-  .lyric-line.next-1{font-size:0.95rem!important;}
-  .lyric-line.prev-1{font-size:0.95rem!important;}
+  .lyric-line.active{font-size:1.3rem!important;background:transparent!important;box-shadow:none!important;transform:scale(1.12)!important;}
+  .lyric-line.next-1{font-size:0.9rem!important;opacity:.4!important;transform:scale(.88)!important;}
+  .lyric-line.prev-1{font-size:0.9rem!important;opacity:.4!important;transform:scale(.88)!important;}
+  .lyric-line.prev-2,.lyric-line.next-2{opacity:0!important;transform:scale(.7)!important;}
   .songs-header{margin-bottom:15px!important;}
   .song-title{font-size:1.1rem!important;}
   .page-name{font-size:.7rem!important;}
@@ -734,7 +735,8 @@ function bindSongs(){
   document.getElementById("btnNextSong").onclick=function(e){e.stopPropagation();randomNext();};
   document.getElementById("btnShuffle").onclick=function(e){e.stopPropagation();randomNext();};
   prog.addEventListener("click",function(e){
-    if(!audio||!audio.duration)return;
+    if(!audio)return;
+    if(!audio.duration||isNaN(audio.duration)){setTimeout(function(){if(audio&&audio.duration&&!isNaN(audio.duration)){const r=prog.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;}},300);return;}
     const r=prog.getBoundingClientRect();
     audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;
   });
