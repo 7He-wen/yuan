@@ -72,7 +72,7 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .songs-header{width:100%!important;text-align:center!important;margin-bottom:10px!important;min-height:50px!important;z-index:100!important;position:relative!important;display:block!important;visibility:visible!important;}
 .page-name{font-size:.8rem!important;letter-spacing:.35em!important;color:#fff!important;opacity:.7!important;margin-bottom:4px!important;font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;width:100%!important;text-align:center!important;display:block!important;visibility:visible!important;}
 .np-track{font-size:.75rem!important;letter-spacing:.2em!important;color:rgba(255,255,255,.5)!important;margin-bottom:8px!important;font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;width:100%!important;text-align:center!important;display:block!important;}
-.songs-main{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:30px;width:100%;flex:1;min-height:0;}
+.songs-main{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:20px;width:100%;flex:1;min-height:0;}
 .songs-bottom{width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:10px;}
 .np-label{display:none;font-size:.7rem;letter-spacing:.46em;color:var(--theme-light);opacity:.9;}
 .np-track{display:none;margin-top:6px;font-size:.74rem;letter-spacing:.3em;color:rgba(243,233,228,.45);font-style:italic;}
@@ -88,7 +88,7 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 .np-track{font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 .vinyl{position:relative;width:160px;height:160px;margin:0;flex-shrink:0;border-radius:50%;z-index:1;background:radial-gradient(circle at center,var(--theme) 0 15%,#0d0a0e 15.5% 18%,rgba(255,255,255,.06) 18.5% 20%,transparent 20.5%),repeating-radial-gradient(circle at center,#17111b 0 3px,#0c0810 3px 6px);box-shadow:0 16px 44px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06);animation:spin 16s linear infinite;animation-play-state:paused;transition:box-shadow .8s;}
 .vinyl.spin{animation-play-state:running;}
-.vinyl::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;transform:translate(-50%,-50%);border-radius:50%;background:#1d1522;box-shadow:0 0 0 3px var(--theme-glow);}
+.vinyl::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;transform:translate(-50%,-50%);border-radius:50%;background:#1d1522;box-shadow:0 0 0 3px var(--theme-glow), 0 0 var(--vinyl-center-glow,0px) var(--theme-glow);transition:box-shadow .1s;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .progress{width:82%;max-width:420px;height:3px;background:rgba(255,255,255,.14);border-radius:3px;margin:8px 0 20px;overflow:hidden;cursor:pointer;}
 .progress-bar{height:100%;width:0;background:linear-gradient(90deg,#ff6b9d,#ff9ec4);border-radius:3px;transition:background .8s;}
@@ -117,7 +117,7 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
 /* ============ 响应式布局 ============ */
 /* 电脑端/iPad（宽度>768px）：左右布局 */
 @media(min-width:769px){
-  .songs-main{flex-direction:row!important;gap:30px!important;}
+  .songs-main{flex-direction:row!important;gap:20px!important;}
   .vinyl{width:160px!important;height:160px!important;}
   .lyrics-wrap{width:450px!important;max-width:450px!important;flex:0 0 450px!important;min-width:450px!important;height:260px!important;}
   .song-title{font-size:1.4rem!important;}
@@ -130,7 +130,7 @@ body{min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"No
   .lyrics-wrap{width:100%!important;max-width:100%!important;min-width:0!important;flex:0 0 auto!important;height:250px!important;order:1!important;overflow:hidden!important;margin-top:0px!important;margin-bottom:0px!important;background:transparent!important;margin-left:0px!important;position:relative!important;z-index:2!important;}
   #lyrics{position:relative!important;width:100%!important;padding:0 8px!important;box-sizing:border-box!important;}
   .lyric-line{overflow:visible!important;white-space:nowrap!important;word-break:normal!important;padding:0!important;width:100%!important;max-width:100%!important;background:transparent!important;box-shadow:none!important;font-size:.82rem!important;line-height:50px!important;height:50px!important;text-align:center!important;transition:all .4s ease!important;}
-  .lyric-line.active{font-size:1.25rem!important;background:transparent!important;box-shadow:none!important;transform:scale(1.08)!important;color:#fff!important;opacity:1!important;font-weight:700!important;text-shadow:0 2px 12px rgba(0,0,0,.4)!important;}
+  .lyric-line.active{font-size:1.25rem!important;background:transparent!important;box-shadow:none!important;color:#fff!important;opacity:1!important;font-weight:700!important;text-shadow:0 2px 12px rgba(0,0,0,.4)!important;}
   .lyric-line.next-1{font-size:.92rem!important;opacity:.55!important;transform:scale(.92)!important;}
   .lyric-line.prev-1{font-size:.92rem!important;opacity:.55!important;transform:scale(.92)!important;}
   .lyric-line.prev-2,.lyric-line.next-2{font-size:.85rem!important;opacity:.4!important;transform:scale(.85)!important;}
@@ -415,6 +415,8 @@ function startVisLoop(){
     // 黑胶光晕
     const vinyl=document.getElementById('vinyl');
     if(vinyl)vinyl.style.boxShadow='0 16px '+(34+bass*30)+'px rgba(0,0,0,.6), 0 0 '+(bass*70)+'px var(--theme-glow), inset 0 0 0 1px rgba(255,255,255,.06)';
+    // 黑胶中心点律动
+    document.documentElement.style.setProperty('--vinyl-center-glow', (10+bass*40)+'px');
     // 背景光晕
     const glow=document.querySelector('.songs-glow');
     if(glow){
@@ -528,7 +530,7 @@ function renderApp(){
           <button class="ctrl main" id="btnPlayPause">${ICON_PAUSE}</button>
           <button class="ctrl" id="btnNextSong">${ICON_NEXT}</button>
         </div>
-        <div style="display:flex;align-items:center;gap:12px;"><button class="mode-toggle" id="btnMode">${ICON_RANDOM}</button><button class="list-toggle" id="btnList">♪ 播放列表</button></div>
+        <div style="display:flex;align-items:center;gap:12px;justify-content:flex-end;width:100%;"><button class="mode-toggle" id="btnMode">${ICON_RANDOM}</button><button class="list-toggle" id="btnList">♪ 播放列表</button></div>
       </div>
     </div>
     <div class="list-panel" id="listPanel">
